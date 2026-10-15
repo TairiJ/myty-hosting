@@ -1,6 +1,6 @@
 services:
   prod:
-    image: ${PROD_IMAGE:-ghcr.io/tairij10/373_hosting:latest}
+    image: ${PROD_IMAGE:-ghcr.io/tairij/myty-hosting:latest}
     container_name: site-prod
     restart: unless-stopped
     networks:
@@ -13,7 +13,7 @@ services:
       - "traefik.http.services.prod.loadbalancer.server.port=80"
 
   qa:
-    image: ${QA_IMAGE:-ghcr.io/tairij10/373_hosting:qa}
+    image: ${QA_IMAGE:-ghcr.io/tairij/myty-hosting:qa}
     container_name: site-qa
     restart: unless-stopped
     networks:
