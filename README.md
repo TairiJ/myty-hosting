@@ -62,8 +62,8 @@ kbdinteractiveauthentication no
 ## 📋 Test Evidence & Workflow Runs
 
 - **Image Registry Location:** [GitHub Packages (`ghcr.io/tairij/myty-hosting`)](https://github.com/TairiJ/myty-hosting/pkgs/container/myty-hosting)
-- **QA Deployment Workflow Run:** [View QA Workflow Run](https://github.com/TairiJ/myty-hosting/actions)
-- **Production Deployment Workflow Run:** [View Production Workflow Run](https://github.com/TairiJ/myty-hosting/actions)
+- **QA Deployment Workflow Run:** [View Successful QA Workflow Run (#38784249364)](https://github.com/TairiJ/myty-hosting/actions/runs/38784249364)
+- **Production Deployment Workflow Run:** [View Successful Production Workflow Run (#38784262197)](https://github.com/TairiJ/myty-hosting/actions/runs/38784262197)
 
 ### Visible Change Verification
 1. **QA Testing:** A visible environment badge (`QA Testing Environment · qa.myty.world`) is rendered on `https://qa.myty.world`.
