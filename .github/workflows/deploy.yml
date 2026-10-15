@@ -1,0 +1,87 @@
+name: CI/CD Pipeline - Test, Build, and Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - qa
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  test:
+    name: Run Validation Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Tests
+        run: |
+          python -m unittest tests/test_website.py -v
+
+  build-and-deploy:
+    name: Build Image & Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Determine Environment & Service
+        id: env-meta
+        run: |
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "image_repo=ghcr.io/${REPO_LOWER}" >> "$GITHUB_OUTPUT"
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "env_name=production" >> "$GITHUB_OUTPUT"
+            echo "image_tag=latest" >> "$GITHUB_OUTPUT"
+            echo "compose_service=prod" >> "$GITHUB_OUTPUT"
+            echo "domain=myty.world" >> "$GITHUB_OUTPUT"
+          else
+            echo "env_name=qa" >> "$GITHUB_OUTPUT"
+            echo "image_tag=qa" >> "$GITHUB_OUTPUT"
+            echo "compose_service=qa" >> "$GITHUB_OUTPUT"
+            echo "domain=qa.myty.world" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.env-meta.outputs.image_repo }}:${{ steps.env-meta.outputs.image_tag }}
+            ${{ steps.env-meta.outputs.image_repo }}:${{ github.sha }}
+
+      - name: Deploy to DigitalOcean Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            export PROD_IMAGE=${{ steps.env-meta.outputs.image_repo }}:latest
+            export QA_IMAGE=${{ steps.env-meta.outputs.image_repo }}:qa
+            cd /home/deployer/app
+            docker compose pull ${{ steps.env-meta.outputs.compose_service }}
+            docker compose up -d ${{ steps.env-meta.outputs.compose_service }}
+            docker compose ps

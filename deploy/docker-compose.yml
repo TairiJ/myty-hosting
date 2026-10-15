@@ -1,0 +1,30 @@
+services:
+  prod:
+    image: ${PROD_IMAGE:-ghcr.io/tairij10/373_hosting:latest}
+    container_name: site-prod
+    restart: unless-stopped
+    networks:
+      - hosting-web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prod.rule=Host(`myty.world`)"
+      - "traefik.http.routers.prod.entrypoints=websecure"
+      - "traefik.http.routers.prod.tls.certresolver=letsencrypt"
+      - "traefik.http.services.prod.loadbalancer.server.port=80"
+
+  qa:
+    image: ${QA_IMAGE:-ghcr.io/tairij10/373_hosting:qa}
+    container_name: site-qa
+    restart: unless-stopped
+    networks:
+      - hosting-web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.qa.rule=Host(`qa.myty.world`)"
+      - "traefik.http.routers.qa.entrypoints=websecure"
+      - "traefik.http.routers.qa.tls.certresolver=letsencrypt"
+      - "traefik.http.services.qa.loadbalancer.server.port=80"
+
+networks:
+  hosting-web:
+    external: true

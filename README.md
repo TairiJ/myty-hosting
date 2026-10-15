@@ -1,109 +1,70 @@
-# IS 373 Hosting Lab
+# Practical Test: Containerized CI/CD Deployment to QA and Production
 
-Build a public Ubuntu web server with Docker, Traefik, Apache HTTP Server, and automatic Let's Encrypt HTTPS. This mini textbook takes you from DNS records to a working multi-domain server, then teaches you how to operate and troubleshoot it.
+## 🌐 Live Environments
+- **Production Site:** [https://myty.world](https://myty.world)
+- **QA Testing Site:** [https://qa.myty.world](https://qa.myty.world)
 
-This repository owns **hosting infrastructure**. The complementary [is373_ci_cd](https://github.com/kaw393939/is373_ci_cd) repository owns **application code, tests, and image releases**. Each works independently. [Chapter 10](book/10-application-delivery.md) connects them using one small routing adapter and a public release check.
+---
 
-Live classroom calculator: [calc.mywebclass.org](https://calc.mywebclass.org).
-See the [dated deployment evidence](book/deployments/2026-09-29-calculator.md) for
-the tested release, HTTPS verification, and observed limits.
+## 🚀 Architecture & Promotion Rules
 
-**Audience:** students comfortable opening a terminal but new to running public web infrastructure. **Lab target:** a fresh Ubuntu 24.04 LTS VPS, a public IPv4 address, and domains you control. Budget about 90 minutes, plus DNS propagation. A VPS and domain registration may cost money.
+### Branch and Promotion Strategy
+- **QA Deployment:**
+  - Pushing changes to the `qa` branch triggers the GitHub Actions workflow.
+  - The pipeline runs validation unit tests, builds the container image tagged `:qa`, pushes it to GitHub Container Registry (`ghcr.io`), and deploys it automatically to **[https://qa.myty.world](https://qa.myty.world)**.
+- **Production Promotion:**
+  - After changes are verified on QA, a Pull Request is approved and merged into the `main` branch.
+  - Pushes to `main` trigger the automated pipeline, run tests, build the container image tagged `:latest`, push to `ghcr.io`, and deploy to the production flagship domain **[https://myty.world](https://myty.world)**.
+- **Environment Isolation:**
+  - Both environments run as separate Docker containers behind Traefik reverse proxy on the same host. QA changes remain isolated on `qa.myty.world` until explicitly reviewed, approved, and merged to `main`.
 
-## What you build
+---
 
-```mermaid
-flowchart LR
-    Browser --> DNS[DNS: hostname to server IP]
-    Browser -->|HTTP 80 / HTTPS 443| Traefik
-    Traefik -->|Host rule| ApacheA[Apache: first domain]
-    Traefik -->|Host rule| ApacheB[Apache: second domain]
-    Traefik --> Dashboard[Dashboard and API]
-    Traefik <-->|ACME validation and renewal| LE[Let's Encrypt]
-```
+## 🔄 CI/CD Pipeline Summary
+1. **Trigger:** Automatically triggered on `push` to `main` (Production) and `qa` (QA) branches.
+2. **Validation:** Executes Python unit test suite (`tests/test_website.py`) checking HTML validity, meta viewport, title tags, component structure, and Dockerfile integrity. Any failure immediately stops the pipeline before build or deployment.
+3. **Container Build & Registry Push:** Builds the production/QA container image from `Dockerfile` using Docker Buildx and publishes the image to GitHub Packages Container Registry (`ghcr.io`).
+4. **Automated Server Deployment:** Securely connects to the DigitalOcean Droplet (`142.93.54.117`) over SSH using the dedicated non-root `deployer` account and key-based authentication (stored in GitHub Repository Secrets). It pulls the respective image tag and restarts the targeted container (`site-prod` or `site-qa`) via Docker Compose.
 
-Every website hostname gets its own official `httpd` container and editable welcome page. Traefik is the only container publishing host ports. It routes requests, redirects HTTP to HTTPS, and manages certificates. Docker restarts the services after reboot.
+---
 
-## Read the mini textbook
+## 🔒 SSH Security & Hardening Evidence
 
-| Chapter | Learning outcome |
-|---|---|
-| [1. The request's journey](book/01-architecture.md) | Distinguish DNS, ports, TLS, routers, and services |
-| [2. Prepare the server and DNS](book/02-server-and-dns.md) | Connect over SSH and point names at your VPS |
-| [3. Install Docker](book/03-docker.md) | Understand images, containers, networks, and mounts |
-| [4. Build the hosting stack](book/04-deploy.md) | Generate and deploy custom Apache welcome pages |
-| [5. HTTPS and the dashboard](book/05-https-dashboard.md) | Explain certificate issuance and inspect routing |
-| [6. Diagnose failures](book/06-troubleshooting.md) | Locate failures by testing one layer at a time |
-| [7. Operate and extend](book/07-operations.md) | Add sites, back up data, and update deliberately |
-| [8. Assessment and glossary](book/08-assessment.md) | Demonstrate understanding with practical exercises |
-| [9. Configuration file walkthrough](book/09-configuration-files.md) | Read complete Compose, Traefik, HTML, and host configuration copies |
-| [10. Application delivery](book/10-application-delivery.md) | Route the companion's tested releases through HTTPS and verify updates/rollback |
+A dedicated non-root administrative account `deployer` was provisioned with `sudo` and `docker` group privileges. Direct root SSH login and password authentication have been disabled globally.
 
-**Want to see the actual files first?** Browse the [complete example stack](examples/full-stack/README.md), including the [Compose file](examples/full-stack/compose.yaml), [commented Traefik configuration](examples/full-stack/traefik.yml), optional overlays, and all five welcome pages. [Host configuration copies](examples/host-config/README.md) cover APT, firewall commands, and DNS records.
-
-## Quick start
-
-Run these commands **on a fresh Ubuntu VPS**, after setting your DNS records. Do not start a second stack on a server already using ports 80 and 443.
-
+### 1. Successful SSH-Key Login as Non-Root User (`deployer`)
 ```bash
-sudo apt-get update
-sudo apt-get install -y git python3
-git clone https://github.com/kaw393939/373_hosting.git
-cd 373_hosting
-sudo bash scripts/install-docker.sh
-cp examples/hosting.example.json hosting.json
-nano hosting.json
+$ ssh deployer@142.93.54.117 "id && docker ps"
+uid=1000(deployer) gid=1000(deployer) groups=1000(deployer),27(sudo),987(docker)
+CONTAINER ID   IMAGE              COMMAND                  CREATED        STATUS        PORTS                                      NAMES
+32b5ac58d919   traefik:v3.7.13    "/entrypoint.sh --ap…"   2 weeks ago    Up 2 weeks    0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   hosting373-traefik-1
+c6d70f407627   httpd:2.4-alpine   "httpd-foreground"       2 weeks ago    Up 2 weeks    80/tcp                                     hosting373-site-1-1
 ```
 
-Replace every example hostname and the email address with your own. The dashboard hostname must be different from all website hostnames.
-
+### 2. Root SSH Login Rejected
+Direct root login is rejected:
 ```bash
-python3 scripts/configure.py --config hosting.json --output runtime
-sudo docker compose -f runtime/compose.yaml config --quiet
-sudo docker compose -f runtime/compose.yaml up -d
-python3 scripts/verify.py --config hosting.json
+$ ssh root@142.93.54.117 "echo logged in"
+root@142.93.54.117: Permission denied (publickey).
 ```
 
-Certificate issuance may take a few minutes; rerun verification after startup. Open `https://YOUR_DASHBOARD_HOST/dashboard/` (keep the final slash).
-
-**Lab access:** the dashboard is deliberately password-free, matching the classroom demonstration. Anyone who can reach it can view routing and service metadata. [Chapter 5](book/05-https-dashboard.md) explains how to add Basic Authentication before using this as a longer-lived deployment. Traefik's dashboard is an inspection interface; edit Compose to change the stack.
-
-## Project map
-
-```text
-book/                         Mini textbook, labs, and troubleshooting
-examples/hosting.example.json  Replaceable example settings
-scripts/install-docker.sh     Official Docker APT repository installation
-scripts/configure.py          Generate Compose and welcome pages
-scripts/verify.py             Check DNS, redirects, HTTPS, and page content
-tests/                        Offline generator checks
-runtime/                      Generated deployment; ignored by Git
+### 3. Effective SSH Configuration Settings
+Verification of effective daemon configuration (`sshd -T`) confirming root login and password authentication are disabled:
+```bash
+$ ssh deployer@142.93.54.117 "sudo sshd -T | grep -iE 'permitrootlogin|passwordauthentication|kbdinteractiveauthentication'"
+permitrootlogin no
+passwordauthentication no
+kbdinteractiveauthentication no
 ```
 
-The example uses the same two-domain layout as the class demonstration: apex names, `www`, a development host, and a Traefik host. It does not contain a real server address, credentials, or certificate keys. Your local configuration and generated runtime are ignored by Git.
+---
 
-## Validation and limits
+## 📋 Test Evidence & Workflow Runs
 
-Run `python3 -m unittest discover -s tests -v` and `bash -n scripts/install-docker.sh`. CI also validates the generated Compose model. These checks do not provision a cloud server or request public certificates. See [VALIDATION.md](VALIDATION.md) for exactly what was exercised.
+- **Image Registry Location:** [GitHub Packages / Container Registry (`ghcr.io`)](https://github.com?tab=packages)
+- **QA Deployment Workflow Run:** [View QA Workflow Run](#)
+- **Production Deployment Workflow Run:** [View Production Workflow Run](#)
 
-This is a single-server teaching deployment, not high availability. It does not configure GoDaddy automatically, deploy a wildcard certificate, or provide application databases. The scripts do not upgrade Ubuntu or reboot the VPS.
-
-## Primary references
-
-- [Docker installation on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-- [Docker Compose documentation](https://docs.docker.com/compose/)
-- [Traefik Docker provider](https://doc.traefik.io/traefik/reference/install-configuration/providers/docker/)
-- [Traefik certificate resolvers](https://doc.traefik.io/traefik/reference/install-configuration/tls/certificate-resolvers/acme/)
-- [Traefik dashboard](https://doc.traefik.io/traefik/reference/install-configuration/api-dashboard/)
-- [Let's Encrypt challenge types](https://letsencrypt.org/docs/challenge-types/)
-- [Apache HTTP Server documentation](https://httpd.apache.org/docs/2.4/)
-
-Configuration reviewed September 29, 2026. The Traefik version is pinned; the Apache `2.4-alpine` tag follows Apache 2.4 updates. Review upstream release notes before upgrading.
-
-## Repository boundary
-
-Keep the server, proxy, certificates, and public routing lessons here. Keep the
-calculator, Dockerfile, application tests, registry publishing, and application
-updater lifecycle in the companion. Hosting changes do not need an application
-release, and application updates do not rebuild the proxy or welcome pages.
-There is no duplicated application source or second publishing workflow here.
+### Visible Change Verification
+1. **QA Testing:** A visible environment badge (`QA Testing Environment · qa.myty.world`) is rendered on `https://qa.myty.world`.
+2. **Production Promotion:** Upon merge to `main`, the change promotes cleanly to `https://myty.world` displaying the production status.

@@ -1,0 +1,1665 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tizz | myty.world &middot; Artist, Technologist & Creator</title>
+  <meta name="description" content="Official universe of Tizz (@tizz.zyy) - Melodic artist, DJ, master barber, and cloud technologist. Featuring The Jukebox and the 4 Pillars of myty.world.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-display: 'Space Grotesk', var(--font-body);
+      
+      /* Dark Theme (Midnight Velvet) */
+      --bg: #07090e;
+      --bg-surface: #0e131f;
+      --bg-surface-elevated: #161e31;
+      --bg-glass: rgba(14, 19, 31, 0.72);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(56, 189, 248, 0.35);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #38bdf8;
+      --accent-violet: #a855f7;
+      --accent-gold: #fde047;
+      --accent-rose: #f43f5e;
+      --glow-accent: rgba(56, 189, 248, 0.22);
+      --shadow-card: 0 20px 45px -15px rgba(0, 0, 0, 0.7);
+      --card-radius: 20px;
+    }
+
+    [data-theme="light"] {
+      /* Light Theme (Champagne Pearl) */
+      --bg: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --bg-glass: rgba(255, 255, 255, 0.85);
+      --border: rgba(0, 0, 0, 0.08);
+      --border-accent: rgba(14, 165, 233, 0.35);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --accent-cyan: #0284c7;
+      --accent-violet: #9333ea;
+      --accent-gold: #d97706;
+      --accent-rose: #e11d48;
+      --glow-accent: rgba(2, 132, 199, 0.12);
+      --shadow-card: 0 20px 45px -15px rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    /* Ambient background mesh */
+    .ambient-mesh {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(244, 63, 94, 0.08) 0%, transparent 40%);
+    }
+
+    /* Navigation Bar */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: var(--bg-glass);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #ffffff;
+      box-shadow: 0 4px 14px var(--glow-accent);
+    }
+    .brand-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-tag {
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-left: 4px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .theme-toggle-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 8px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .theme-toggle-btn:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 64px;
+      padding-top: 16px;
+    }
+    @media (max-width: 900px) {
+      .hero-section { grid-template-columns: 1fr; text-align: center; }
+      .hero-badge-wrap { justify-content: center; }
+      .hero-actions { justify-content: center; }
+    }
+    .hero-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+    }
+    h1.hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero-gradient-text {
+      background: linear-gradient(135deg, #ffffff 10%, #cbd5e1 50%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    [data-theme="light"] .hero-gradient-text {
+      background: linear-gradient(135deg, #0f172a 20%, #334155 60%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.hero-sub {
+      color: var(--text-secondary);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.6;
+      max-width: 640px;
+      margin-bottom: 32px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px var(--glow-accent);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px var(--glow-accent);
+    }
+    .btn-secondary {
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 14px 26px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Card / Portrait */
+    .hero-portrait-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .hero-portrait-card::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 140px;
+      height: 140px;
+      background: var(--accent-violet);
+      filter: blur(70px);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    .avatar-wrapper {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin-bottom: 20px;
+    }
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--bg-surface-elevated);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    .avatar-badge {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      background: #0f172a;
+      border: 2px solid var(--accent-cyan);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+    }
+    .portrait-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .portrait-handle {
+      color: var(--accent-cyan);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .portrait-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .portrait-tag {
+      background: var(--bg-surface-elevated);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    /* Section Styling */
+    .section-header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .section-label {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--accent-cyan);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* THE JUKEBOX SECTION */
+    .jukebox-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 40px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .jukebox-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 220px;
+      height: 220px;
+      background: var(--accent-cyan);
+      filter: blur(100px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .jukebox-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 850px) {
+      .jukebox-grid { grid-template-columns: 1fr; }
+    }
+    .album-art-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+    }
+    .album-art {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .album-badge-ribbon {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      color: var(--accent-gold);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(253, 224, 71, 0.3);
+    }
+    .jukebox-player {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .track-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .track-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .track-artist {
+      color: var(--accent-cyan);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .track-vibe-pill {
+      background: var(--bg-surface-elevated);
+      color: var(--accent-rose);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* Waveform visualizer simulation */
+    .waveform-visualizer {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 48px;
+      padding: 0 8px;
+      background: var(--bg-surface-elevated);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .wave-bar {
+      flex: 1;
+      height: 20%;
+      background: var(--accent-cyan);
+      border-radius: 99px;
+      transition: height 0.15s ease, opacity 0.15s ease;
+      opacity: 0.6;
+    }
+    .is-playing .wave-bar {
+      animation: pulseWave 1.2s infinite ease-in-out alternate;
+    }
+    @keyframes pulseWave {
+      0% { height: 15%; opacity: 0.4; }
+      50% { height: 85%; opacity: 1; }
+      100% { height: 35%; opacity: 0.6; }
+    }
+
+    /* Audio Controls */
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .play-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      border: none;
+      color: #ffffff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 24px var(--glow-accent);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .play-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 12px 28px var(--glow-accent);
+    }
+    .timeline-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .timeline-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--bg-surface-elevated);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .timeline-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 28%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+      border-radius: 999px;
+      transition: width 0.2s linear;
+    }
+    .time-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+    }
+
+    /* Streaming Platforms Drawer */
+    .stream-drawer {
+      margin-top: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .stream-drawer-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .stream-badges-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .stream-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .stream-badge:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px var(--glow-accent);
+    }
+
+    /* THE 4 PILLARS SECTION */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+    .pillar-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .pillar-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-accent);
+    }
+    .pillar-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .pillar-card.artistic .pillar-icon { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+    .pillar-card.academic .pillar-icon { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); }
+    .pillar-card.professional .pillar-icon { background: rgba(253, 224, 71, 0.15); color: var(--accent-gold); }
+    .pillar-card.spiritual .pillar-icon { background: rgba(168, 85, 247, 0.15); color: var(--accent-violet); }
+
+    .pillar-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .pillar-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .pillar-footer-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* TEASER BANNER (MYTY Orbit Planner) */
+    .teaser-banner {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(168, 85, 247, 0.12));
+      border: 1px solid var(--border-accent);
+      border-radius: 24px;
+      padding: 36px 40px;
+      margin-bottom: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .teaser-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .teaser-content p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      font-size: 0.95rem;
+    }
+
+    /* Social / Connect Footer */
+    footer.site-footer {
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .footer-social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .footer-social-link {
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .footer-social-link:hover {
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+    .server-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-top: 20px;
+      color: var(--text-secondary);
+    }
+    /* ── Calculator Section ─────────────────────────────── */
+    .calc-section { margin-bottom: 64px; }
+    .calc-section-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .calc-section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+    .calc-section-header p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+    .calc-wrapper {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .calc-wrapper { grid-template-columns: 1fr; }
+    }
+    .calc-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+    /* Mode switcher */
+    .calc-mode-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .calc-mode-btn {
+      flex: 1;
+      padding: 8px 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .calc-mode-btn.active {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      color: #fff;
+      border-color: transparent;
+    }
+    /* Display */
+    .calc-display {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      text-align: right;
+    }
+    .calc-expr {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-height: 1.2em;
+      word-break: break-all;
+      margin-bottom: 4px;
+    }
+    .calc-result {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.04em;
+      word-break: break-all;
+      min-height: 1.2em;
+    }
+    .calc-result.error { color: var(--accent-rose); font-size: 1.4rem; }
+    /* Keypad */
+    .calc-keypad {
+      display: grid;
+      gap: 10px;
+    }
+    .calc-keypad.standard  { grid-template-columns: repeat(4, 1fr); }
+    .calc-keypad.scientific { grid-template-columns: repeat(5, 1fr); }
+    .calc-key {
+      padding: 0;
+      height: 56px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface-elevated);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .calc-key:active { transform: scale(0.93); }
+    .calc-key.op {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent-cyan);
+      border-color: rgba(56, 189, 248, 0.25);
+    }
+    .calc-key.fn {
+      background: rgba(168, 85, 247, 0.1);
+      color: var(--accent-violet);
+      border-color: rgba(168, 85, 247, 0.25);
+      font-size: 0.8rem;
+    }
+    .calc-key.eq {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      color: #fff;
+      border-color: transparent;
+      font-size: 1.3rem;
+    }
+    .calc-key.clr {
+      background: rgba(244, 63, 94, 0.12);
+      color: var(--accent-rose);
+      border-color: rgba(244, 63, 94, 0.25);
+    }
+    .calc-key.span2 { grid-column: span 2; }
+    /* History panel */
+    .calc-history-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      max-height: 540px;
+    }
+    .calc-history-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .calc-history-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 8px;
+    }
+    .calc-history-item {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .calc-history-item:hover { border-color: var(--accent-cyan); }
+    .calc-history-item .h-expr {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .calc-history-item .h-ans {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .calc-history-empty {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 24px 0;
+    }
+    .calc-history-clear {
+      margin-top: 14px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+    }
+    .calc-history-clear:hover { border-color: var(--accent-rose); color: var(--accent-rose); }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background glow mesh -->
+  <div class="ambient-mesh"></div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <div class="brand-mark">T</div>
+        <div>
+          <span class="brand-name">myty.world</span>
+          <span class="brand-tag">Tizz</span>
+        </div>
+      </a>
+      
+      <div class="nav-actions">
+        <a href="#jukebox" class="nav-link">The Jukebox</a>
+        <a href="#pillars" class="nav-link">4 Pillars</a>
+        <a href="#calculator" class="nav-link">Calculator</a>
+        <a href="#connect" class="nav-link">Connect</a>
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Mood Theme">
+          <span id="themeIcon">☀️</span>
+          <span id="themeText">Pearl</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge-wrap">
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span id="envBadgeText">Live On Traefik &middot; myty.world</span>
+          </div>
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-gradient-text">Cool. Creative. Versatile.</span><br>
+          Welcome to My World.
+        </h1>
+        <p class="hero-sub">
+          I'm <strong>Tizz</strong> (@tizz.zyy) &mdash; an artist crafting melodic, romantic sonic landscapes, a barber curating aesthetic precision, and a technologist engineering cloud infrastructure.
+        </p>
+        <div class="hero-actions">
+          <a href="#jukebox" class="btn-primary">
+            <span>🎧</span> Listen to The Jukebox
+          </a>
+          <a href="#pillars" class="btn-secondary">
+            <span>✨</span> Explore Identity Pillars
+          </a>
+          <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="btn-secondary">
+            <span>📸</span> @tizz.zyy
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Portrait Card -->
+      <div class="hero-portrait-card">
+        <div class="avatar-wrapper">
+          <img class="avatar-img" src="https://ugc.production.linktr.ee/5706a8e6-e7e2-4793-b909-b5fe8f6d1b02_IMG-9520.jpeg?io=true&size=avatar-v3_0" alt="Tizz Official Portrait" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'">
+          <div class="avatar-badge">👑</div>
+        </div>
+        <div class="portrait-name">Tizz</div>
+        <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="portrait-handle">@tizz.zyy</a>
+        <div class="portrait-tags">
+          <span class="portrait-tag">✍🏽 Artist</span>
+          <span class="portrait-tag">🎧 DJ</span>
+          <span class="portrait-tag">💈 Barber</span>
+          <span class="portrait-tag">💻 Tech</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
+          "Blending romantic melodies, street aesthetic, and autonomous cloud systems."
+        </p>
+      </div>
+    </section>
+
+    <!-- THE JUKEBOX SECTION -->
+    <section id="jukebox" class="jukebox-section">
+      <div class="jukebox-grid">
+        <div class="album-art-wrap">
+          <img id="albumArt" class="album-art" src="https://ugc.production.linktr.ee/ccc7bc5d-9316-4445-9151-5c6baec5eff1_1000x1000bb.jpeg?io=true&size=thumbnail-stack_v1_0" alt="Black Love Letterz EP Artwork" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80'">
+          <div class="album-badge-ribbon">FEATURED RELEASE</div>
+        </div>
+
+        <div class="jukebox-player">
+          <div class="track-meta">
+            <div>
+              <div class="section-label">THE JUKEBOX &middot; AUDIO DECK</div>
+              <h2 id="currentTrackTitle" class="track-title">Black Love Letterz</h2>
+              <div class="track-artist">Tizz &middot; Single / EP</div>
+            </div>
+            <div class="track-vibe-pill">🌹 Melodic & Romantic</div>
+          </div>
+
+          <!-- Waveform visualizer -->
+          <div id="waveform" class="waveform-visualizer">
+            <div class="wave-bar" style="animation-delay: 0.1s"></div>
+            <div class="wave-bar" style="animation-delay: 0.3s"></div>
+            <div class="wave-bar" style="animation-delay: 0.5s"></div>
+            <div class="wave-bar" style="animation-delay: 0.2s"></div>
+            <div class="wave-bar" style="animation-delay: 0.6s"></div>
+            <div class="wave-bar" style="animation-delay: 0.4s"></div>
+            <div class="wave-bar" style="animation-delay: 0.8s"></div>
+            <div class="wave-bar" style="animation-delay: 0.3s"></div>
+            <div class="wave-bar" style="animation-delay: 0.7s"></div>
+            <div class="wave-bar" style="animation-delay: 0.5s"></div>
+            <div class="wave-bar" style="animation-delay: 0.2s"></div>
+            <div class="wave-bar" style="animation-delay: 0.9s"></div>
+            <div class="wave-bar" style="animation-delay: 0.4s"></div>
+            <div class="wave-bar" style="animation-delay: 0.6s"></div>
+            <div class="wave-bar" style="animation-delay: 0.1s"></div>
+          </div>
+
+          <!-- Audio Controls -->
+          <div class="player-controls">
+            <button id="playBtn" class="play-btn" aria-label="Play/Pause">
+              <span id="playIcon">▶</span>
+            </button>
+            <div class="timeline-container">
+              <div id="timelineBar" class="timeline-bar">
+                <div id="timelineProgress" class="timeline-progress"></div>
+              </div>
+              <div class="time-labels">
+                <span id="currentTime">0:45</span>
+                <span id="totalDuration">2:58</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Streaming Platforms Drawer -->
+          <div class="stream-drawer">
+            <span class="stream-drawer-label">STREAM ON YOUR FAVORITE PLATFORM:</span>
+            <div class="stream-badges-grid">
+              <a href="https://music.apple.com/us/album/black-love-letterz-single/6791419445" target="_blank" rel="noopener" class="stream-badge">
+                <span>🍎</span> Apple Music
+              </a>
+              <a href="https://open.spotify.com/artist/6l9lah6kIUt7ZmYcpCALyx?si=3nIA3xdwS0STKG3hwmTzwQ" target="_blank" rel="noopener" class="stream-badge">
+                <span>🟢</span> Spotify
+              </a>
+              <a href="https://tiktok.com/@tizzys.burner" target="_blank" rel="noopener" class="stream-badge">
+                <span>🎵</span> TikTok
+              </a>
+              <a href="https://snapchat.com/t/QI2tIH3B" target="_blank" rel="noopener" class="stream-badge">
+                <span>👻</span> Snapchat
+              </a>
+              <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="stream-badge">
+                <span>📸</span> Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE 4 PILLARS OF IDENTITY -->
+    <section id="pillars">
+      <div class="section-header">
+        <span class="section-label">MULTIFACETED IDENTITY</span>
+        <h2 class="section-title">The 4 Pillars of MYTY</h2>
+      </div>
+
+      <div class="pillars-grid">
+        <!-- 1. Artistic -->
+        <div class="pillar-card artistic">
+          <div>
+            <div class="pillar-icon">🎶</div>
+            <h3 class="pillar-title">Artistic Expression</h3>
+            <p class="pillar-desc">
+              Melodic, romantic, and versatile rap with soulful textures. Blending vulnerable lyricism with infectious rhythms, DJ curation, and sonic worldbuilding.
+            </p>
+          </div>
+          <div class="pillar-footer-tag">Discography &middot; DJ &middot; Vision</div>
+        </div>
+
+        <!-- 2. Academic -->
+        <div class="pillar-card academic">
+          <div>
+            <div class="pillar-icon">⚡</div>
+            <h3 class="pillar-title">Academic & Tech</h3>
+            <p class="pillar-desc">
+              Cloud & Network Infrastructure (IS 373). Mastering Linux systems, Docker container microservices, Traefik edge reverse proxies, and automated Let's Encrypt TLS security.
+            </p>
+          </div>
+          <div class="pillar-footer-tag">Cloud Infrastructure &middot; DevOps</div>
+        </div>
+
+        <!-- 3. Professional -->
+        <div class="pillar-card professional">
+          <div>
+            <div class="pillar-icon">✂️</div>
+            <h3 class="pillar-title">Professional Craft</h3>
+            <p class="pillar-desc">
+              Master barbering, personal grooming craft, and entrepreneurship. Bringing sharp artistic discipline, high-touch client experience, and brand vision to life.
+            </p>
+          </div>
+          <div class="pillar-footer-tag">Barbering &middot; Enterprise &middot; Detail</div>
+        </div>
+
+        <!-- 4. Spiritual -->
+        <div class="pillar-card spiritual">
+          <div>
+            <div class="pillar-icon">🕊️</div>
+            <h3 class="pillar-title">Spiritual & Mindset</h3>
+            <p class="pillar-desc">
+              Protecting the energy, elevating the aura, and executing with intention. Moving through life with quiet confidence, self-mastery, and constant evolution.
+            </p>
+          </div>
+          <div class="pillar-footer-tag">Energy &middot; Growth &middot; Alignment</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEASER BANNER: MYTY ORBIT PLANNER -->
+    <section class="teaser-banner">
+      <div class="teaser-content">
+        <span class="status-badge" style="margin-bottom: 8px;">COMING NEXT &middot; SPRINT 2</span>
+        <h3>MYTY Orbit &mdash; Lightweight Life & Academic Planner</h3>
+        <p>A distraction-free productivity cockpit for assignments, studio write nights, work shifts, and vacation itineraries. Designed for planner.myty.world.</p>
+      </div>
+      <div>
+        <a href="#connect" class="btn-primary" style="background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border);">
+          Get Notified &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- ── CALCULATOR SECTION ────────────────────────── -->
+    <section id="calculator" class="calc-section">
+      <div class="calc-section-header">
+        <h2>🧮 Calculator</h2>
+        <p>Standard &amp; Scientific modes &mdash; keyboard supported, history saved.</p>
+      </div>
+
+      <div class="calc-wrapper">
+        <!-- Keypad Card -->
+        <div class="calc-card">
+          <div class="calc-mode-bar">
+            <button class="calc-mode-btn active" id="modeStd">Standard</button>
+            <button class="calc-mode-btn" id="modeSci">Scientific</button>
+          </div>
+
+          <div class="calc-display">
+            <div class="calc-expr" id="calcExpr">&nbsp;</div>
+            <div class="calc-result" id="calcResult"></div>
+          </div>
+
+          <!-- Standard Keypad -->
+          <div class="calc-keypad standard" id="padStandard">
+            <button class="calc-key clr span2" data-action="AC">AC</button>
+            <button class="calc-key op" data-action="del">DEL</button>
+            <button class="calc-key op" data-action="op" data-val="/">&divide;</button>
+
+            <button class="calc-key" data-action="num" data-val="7">7</button>
+            <button class="calc-key" data-action="num" data-val="8">8</button>
+            <button class="calc-key" data-action="num" data-val="9">9</button>
+            <button class="calc-key op" data-action="op" data-val="*">&times;</button>
+
+            <button class="calc-key" data-action="num" data-val="4">4</button>
+            <button class="calc-key" data-action="num" data-val="5">5</button>
+            <button class="calc-key" data-action="num" data-val="6">6</button>
+            <button class="calc-key op" data-action="op" data-val="-">&minus;</button>
+
+            <button class="calc-key" data-action="num" data-val="1">1</button>
+            <button class="calc-key" data-action="num" data-val="2">2</button>
+            <button class="calc-key" data-action="num" data-val="3">3</button>
+            <button class="calc-key op" data-action="op" data-val="+">+</button>
+
+            <button class="calc-key" data-action="toggle-sign">&plusmn;</button>
+            <button class="calc-key" data-action="num" data-val="0">0</button>
+            <button class="calc-key" data-action="decimal">.</button>
+            <button class="calc-key eq" data-action="equals">=</button>
+          </div>
+
+          <!-- Scientific Keypad -->
+          <div class="calc-keypad scientific" id="padScientific" style="display:none">
+            <button class="calc-key fn" data-action="sci" data-val="sin">sin</button>
+            <button class="calc-key fn" data-action="sci" data-val="cos">cos</button>
+            <button class="calc-key fn" data-action="sci" data-val="tan">tan</button>
+            <button class="calc-key fn" data-action="sci" data-val="log">log</button>
+            <button class="calc-key fn" data-action="sci" data-val="ln">ln</button>
+
+            <button class="calc-key fn" data-action="sci" data-val="sqrt">&radic;</button>
+            <button class="calc-key fn" data-action="sci" data-val="sq">x&sup2;</button>
+            <button class="calc-key fn" data-action="sci" data-val="cube">x&sup3;</button>
+            <button class="calc-key fn" data-action="sci" data-val="inv">1/x</button>
+            <button class="calc-key fn" data-action="sci" data-val="pi">&pi;</button>
+
+            <button class="calc-key clr span2" data-action="AC">AC</button>
+            <button class="calc-key op" data-action="del">DEL</button>
+            <button class="calc-key op" data-action="op" data-val="/">&divide;</button>
+            <button class="calc-key op" data-action="op" data-val="*">&times;</button>
+
+            <button class="calc-key" data-action="num" data-val="7">7</button>
+            <button class="calc-key" data-action="num" data-val="8">8</button>
+            <button class="calc-key" data-action="num" data-val="9">9</button>
+            <button class="calc-key op" data-action="op" data-val="-">&minus;</button>
+            <button class="calc-key op" data-action="op" data-val="+">+</button>
+
+            <button class="calc-key" data-action="num" data-val="4">4</button>
+            <button class="calc-key" data-action="num" data-val="5">5</button>
+            <button class="calc-key" data-action="num" data-val="6">6</button>
+            <button class="calc-key fn" data-action="sci" data-val="pow">x<sup>y</sup></button>
+            <button class="calc-key fn" data-action="sci" data-val="e">e</button>
+
+            <button class="calc-key" data-action="num" data-val="1">1</button>
+            <button class="calc-key" data-action="num" data-val="2">2</button>
+            <button class="calc-key" data-action="num" data-val="3">3</button>
+            <button class="calc-key" data-action="toggle-sign">&plusmn;</button>
+            <button class="calc-key" data-action="decimal">.</button>
+
+            <button class="calc-key" data-action="num" data-val="0" style="grid-column:span 2">0</button>
+            <button class="calc-key fn" data-action="sci" data-val="pct">%</button>
+            <button class="calc-key fn" data-action="sci" data-val="abs">|x|</button>
+            <button class="calc-key eq" data-action="equals">=</button>
+          </div>
+        </div>
+
+        <!-- History Card -->
+        <div class="calc-history-card">
+          <h3>📋 History</h3>
+          <div class="calc-history-list" id="calcHistoryList">
+            <div class="calc-history-empty" id="calcHistoryEmpty">No calculations yet.<br>Results appear here.</div>
+          </div>
+          <button class="calc-history-clear" id="calcHistoryClear">Clear History</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Connect Footer -->
+  <footer id="connect" class="site-footer">
+    <div class="footer-social-links">
+      <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="footer-social-link">
+        <span>📸</span> Instagram @tizz.zyy
+      </a>
+      <a href="https://tiktok.com/@tizzys.burner" target="_blank" rel="noopener" class="footer-social-link">
+        <span>🎵</span> TikTok
+      </a>
+      <a href="https://open.spotify.com/artist/6l9lah6kIUt7ZmYcpCALyx" target="_blank" rel="noopener" class="footer-social-link">
+        <span>🟢</span> Spotify
+      </a>
+      <a href="https://music.apple.com/us/artist/tizz/1557122079" target="_blank" rel="noopener" class="footer-social-link">
+        <span>🍎</span> Apple Music
+      </a>
+      <a href="mailto:tairij10@gmail.com" class="footer-social-link">
+        <span>✉️</span> Inquiries: tairij10@gmail.com
+      </a>
+    </div>
+
+    <p>&copy; 2026 Tizz &middot; <strong>myty.world</strong> &middot; Hosted on Ubuntu 24.04 with Docker &amp; Traefik</p>
+    
+    <div class="server-status-pill">
+      <span class="status-dot"></span>
+      <span>HTTPS Secure</span>
+    </div>
+  </footer>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    // 1. Theme Mood Switcher (Midnight Velvet vs Champagne Pearl)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const htmlElem = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlElem.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        htmlElem.setAttribute('data-theme', 'light');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Midnight';
+      } else {
+        htmlElem.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Pearl';
+      }
+    });
+
+    // 2. The Jukebox Interactive Audio Player Simulation
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const waveform = document.getElementById('waveform');
+    const timelineProgress = document.getElementById('timelineProgress');
+    const timelineBar = document.getElementById('timelineBar');
+    const currentTimeElem = document.getElementById('currentTime');
+
+    let isPlaying = false;
+    let currentSeconds = 45;
+    const totalSeconds = 178; // 2:58
+    let intervalTimer = null;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon.textContent = '⏸';
+        waveform.classList.add('is-playing');
+        intervalTimer = setInterval(() => {
+          if (currentSeconds < totalSeconds) {
+            currentSeconds++;
+            currentTimeElem.textContent = formatTime(currentSeconds);
+            timelineProgress.style.width = `${(currentSeconds / totalSeconds) * 100}%`;
+          } else {
+            currentSeconds = 0;
+          }
+        }, 1000);
+      } else {
+        playIcon.textContent = '▶';
+        waveform.classList.remove('is-playing');
+        clearInterval(intervalTimer);
+      }
+    });
+
+    timelineBar.addEventListener('click', (e) => {
+      const rect = timelineBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = Math.max(0, Math.min(1, clickX / rect.width));
+      currentSeconds = Math.floor(pct * totalSeconds);
+      currentTimeElem.textContent = formatTime(currentSeconds);
+      timelineProgress.style.width = `${pct * 100}%`;
+    });
+  </script>
+
+  <!-- ── Calculator Engine ── -->
+  <script>
+    (function() {
+      // State
+      let display   = '';
+      let expr      = '';
+      let operand1  = null;
+      let operator  = null;
+      let justEvaled = false;
+      let awaitingOperand = false;
+      let awaitingPow = false;
+      let powBase    = null;
+      let history    = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+
+      const resultEl = document.getElementById('calcResult');
+      const exprEl   = document.getElementById('calcExpr');
+      const histList = document.getElementById('calcHistoryList');
+      const histEmpty = document.getElementById('calcHistoryEmpty');
+
+      // ── Operator symbols for display ───────────────────
+      const OP_DISPLAY = {
+        '+': '+',
+        '-': '\u2212',
+        '*': '\u00D7',
+        '/': '\u00F7'
+      };
+      function getOpSymbol(op) {
+        return OP_DISPLAY[op] || op;
+      }
+      function normalizeOp(op) {
+        if (op === '\u2212' || op === '\u2013' || op === '-') return '-';
+        if (op === '\u00D7' || op === 'x' || op === 'X' || op === '*') return '*';
+        if (op === '\u00F7' || op === '/') return '/';
+        return op;
+      }
+
+      // ── Helpers ──────────────────────────────────────
+      function setDisplay(val) {
+        display = (val === undefined || val === null) ? '' : String(val);
+        resultEl.textContent = display;
+        resultEl.classList.remove('error');
+      }
+      function setError(msg) {
+        display = msg;
+        resultEl.textContent = msg;
+        resultEl.classList.add('error');
+        expr = '';
+        exprEl.innerHTML = '&nbsp;';
+        operand1 = null; operator = null; justEvaled = false; awaitingOperand = false; awaitingPow = false;
+      }
+      function setExpr(str) { exprEl.textContent = str || '\u00a0'; }
+      function round(n) {
+        return +parseFloat(n.toPrecision(12));
+      }
+
+      // ── Core arithmetic ──────────────────────────────
+      function compute(a, op, b) {
+        switch(normalizeOp(op)) {
+          case '+': return a + b;
+          case '-': return a - b;
+          case '*': return a * b;
+          case '/': return b === 0 ? null : a / b;
+          default:  return b;
+        }
+      }
+
+      // ── Actions ──────────────────────────────────────
+      function inputNum(v) {
+        if (justEvaled || awaitingOperand) {
+          display = v;
+          justEvaled = false;
+          awaitingOperand = false;
+        } else if (!display || display === '0') {
+          display = v;
+        } else {
+          display += v;
+        }
+        setDisplay(display);
+      }
+      function inputDecimal() {
+        if (justEvaled || awaitingOperand) {
+          display = '0.';
+          justEvaled = false;
+          awaitingOperand = false;
+        } else if (!display) {
+          display = '0.';
+        } else if (!display.includes('.')) {
+          display += '.';
+        }
+        setDisplay(display);
+      }
+      function inputOp(rawOp) {
+        const op = normalizeOp(rawOp);
+
+        // Pressing another operator before typing a number swaps the operator
+        if (operator && awaitingOperand && !justEvaled) {
+          operator = op;
+          setExpr(`${operand1} ${getOpSymbol(op)}`);
+          return;
+        }
+
+        const cur = display === '' ? (operand1 !== null ? operand1 : 0) : parseFloat(display);
+        if (isNaN(cur)) return;
+
+        if (operator && !justEvaled && !awaitingOperand) {
+          const result = compute(operand1, operator, cur);
+          if (result === null) { setError('Cannot divide by 0'); return; }
+          operand1 = round(result);
+        } else {
+          operand1 = cur;
+        }
+
+        operator = op;
+        justEvaled = false;
+        awaitingOperand = true;
+        setExpr(`${operand1} ${getOpSymbol(op)}`);
+        setDisplay(''); // Console is empty after pressing an operator
+      }
+      function doEquals() {
+        if (operator === null) return;
+        const cur = display === '' ? (operand1 !== null ? operand1 : 0) : parseFloat(display);
+        setExpr(`${operand1} ${getOpSymbol(operator)} ${cur} =`);
+        const result = compute(operand1, operator, cur);
+        if (result === null) { setError('Cannot divide by 0'); return; }
+        const ans = round(result);
+        pushHistory(`${operand1} ${getOpSymbol(operator)} ${cur}`, ans);
+        setDisplay(ans);
+        operand1 = ans;
+        justEvaled = true;
+        awaitingOperand = false;
+        awaitingPow = false;
+      }
+      function doAC() {
+        display = '';
+        expr = '';
+        operand1 = null;
+        operator = null;
+        justEvaled = false;
+        awaitingOperand = false;
+        awaitingPow = false;
+        powBase = null;
+        setDisplay('');
+        setExpr('');
+      }
+      function doDel() {
+        if (justEvaled) { setDisplay(''); return; }
+        if (display.length <= 1) { setDisplay(''); }
+        else { setDisplay(display.slice(0, -1)); }
+      }
+      function toggleSign() {
+        if (!display) return;
+        const n = parseFloat(display);
+        if (!isNaN(n)) setDisplay(round(-n));
+      }
+
+      // ── Scientific ───────────────────────────────────
+      function doSci(fn) {
+        const n = parseFloat(display || (operand1 !== null ? operand1 : 0));
+        let ans, label;
+        switch(fn) {
+          case 'sin':  ans = round(Math.sin(n * Math.PI / 180)); label = `sin(${n}\u00B0)`; break;
+          case 'cos':  ans = round(Math.cos(n * Math.PI / 180)); label = `cos(${n}\u00B0)`; break;
+          case 'tan':  {
+            const t = Math.tan(n * Math.PI / 180);
+            ans = Math.abs(t) > 1e12 ? Infinity : round(t);
+            label = `tan(${n}\u00B0)`; break;
+          }
+          case 'log':  ans = n <= 0 ? null : round(Math.log10(n)); label = `log(${n})`; break;
+          case 'ln':   ans = n <= 0 ? null : round(Math.log(n));   label = `ln(${n})`; break;
+          case 'sqrt': ans = n < 0  ? null : round(Math.sqrt(n));  label = `\u221A${n}`;    break;
+          case 'sq':   ans = round(n ** 2); label = `${n}\u00B2`; break;
+          case 'cube': ans = round(n ** 3); label = `${n}\u00B3`; break;
+          case 'inv':  ans = n === 0 ? null : round(1 / n); label = `1/${n}`; break;
+          case 'pi':   setDisplay(round(Math.PI)); setExpr('\u03C0'); justEvaled = true; return;
+          case 'e':    setDisplay(round(Math.E));  setExpr('e'); justEvaled = true; return;
+          case 'pct':  ans = round(n / 100); label = `${n}%`; break;
+          case 'abs':  ans = round(Math.abs(n)); label = `|${n}|`; break;
+          case 'pow':
+            awaitingPow = true; powBase = n;
+            setExpr(`${n}^`); operator = null; justEvaled = false;
+            setDisplay(''); return;
+          default: return;
+        }
+        if (ans === null || !isFinite(ans)) {
+          const msgs = { log:'log needs a positive number', ln:'ln needs a positive number', sqrt:'Cannot \u221A a negative', inv:'Cannot divide by 0' };
+          setError(msgs[fn] || 'Math Error'); return;
+        }
+        setExpr(label + ' =');
+        pushHistory(label, ans);
+        setDisplay(ans); justEvaled = true;
+      }
+
+      // If awaiting power base and user presses =, complete xʸ
+      const _origEquals = doEquals;
+      function smartEquals() {
+        if (awaitingPow) {
+          const exp = parseFloat(display || '0');
+          const ans = round(powBase ** exp);
+          const label = `${powBase}^${exp}`;
+          setExpr(label + ' =');
+          pushHistory(label, ans);
+          setDisplay(ans); awaitingPow = false; powBase = null; justEvaled = true;
+          return;
+        }
+        _origEquals();
+      }
+
+      // ── History ──────────────────────────────────────
+      function pushHistory(expression, answer) {
+        history.unshift({ expression, answer });
+        if (history.length > 50) history.pop();
+        localStorage.setItem('calcHistory', JSON.stringify(history));
+        renderHistory();
+      }
+      function renderHistory() {
+        if (history.length === 0) {
+          histEmpty.style.display = '';
+          [...histList.querySelectorAll('.calc-history-item')].forEach(el => el.remove());
+          return;
+        }
+        histEmpty.style.display = 'none';
+        [...histList.querySelectorAll('.calc-history-item')].forEach(el => el.remove());
+        history.forEach(h => {
+          const item = document.createElement('div');
+          item.className = 'calc-history-item';
+          item.innerHTML = `<div class="h-expr">${h.expression}</div><div class="h-ans">${h.answer}</div>`;
+          item.addEventListener('click', () => { setDisplay(h.answer); justEvaled = true; });
+          histList.prepend(item);
+        });
+      }
+      document.getElementById('calcHistoryClear').addEventListener('click', () => {
+        history = []; localStorage.removeItem('calcHistory'); renderHistory();
+      });
+
+      // ── Initialize Display (Blank on load) ───────────
+      setDisplay('');
+      setExpr('');
+      renderHistory();
+
+      // ── Mode Toggle ──────────────────────────────────
+      document.getElementById('modeStd').addEventListener('click', () => {
+        document.getElementById('padStandard').style.display  = '';
+        document.getElementById('padScientific').style.display = 'none';
+        document.getElementById('modeStd').classList.add('active');
+        document.getElementById('modeSci').classList.remove('active');
+      });
+      document.getElementById('modeSci').addEventListener('click', () => {
+        document.getElementById('padStandard').style.display  = 'none';
+        document.getElementById('padScientific').style.display = '';
+        document.getElementById('modeSci').classList.add('active');
+        document.getElementById('modeStd').classList.remove('active');
+      });
+
+      // ── Button Click Handler ─────────────────────────
+      document.querySelectorAll('.calc-key').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.action;
+          const val    = btn.dataset.val;
+          if      (action === 'num')         inputNum(val);
+          else if (action === 'op')          inputOp(val);
+          else if (action === 'equals')      smartEquals();
+          else if (action === 'AC')          doAC();
+          else if (action === 'del')         doDel();
+          else if (action === 'decimal')     inputDecimal();
+          else if (action === 'toggle-sign') toggleSign();
+          else if (action === 'sci')         doSci(val);
+        });
+      });
+
+      // ── Keyboard Support ─────────────────────────────
+      document.addEventListener('keydown', (e) => {
+        const calcEl = document.getElementById('calculator');
+        if (!calcEl) return;
+        const rect = calcEl.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight * 1.5) return;
+
+        const k = e.key;
+        if (k >= '0' && k <= '9')            { e.preventDefault(); inputNum(k); }
+        else if (k === '.')                  { e.preventDefault(); inputDecimal(); }
+        else if (k === '+')                  { e.preventDefault(); inputOp('+'); }
+        else if (k === '-')                  { e.preventDefault(); inputOp('-'); }
+        else if (k === '*')                  { e.preventDefault(); inputOp('*'); }
+        else if (k === '/')                  { e.preventDefault(); inputOp('/'); }
+        else if (k === 'Enter' || k === '=') { e.preventDefault(); smartEquals(); }
+        else if (k === 'Backspace')          { e.preventDefault(); doDel(); }
+      });
+    })();
+
+    // Environment detector for QA vs Production
+    if (window.location.hostname.includes('qa.')) {
+      document.title = '[QA] ' + document.title;
+      const badge = document.getElementById('envBadgeText');
+      if (badge) {
+        badge.innerHTML = 'QA Testing Environment &middot; qa.myty.world';
+      }
+    }
+  </script>
+</body>
+</html>
