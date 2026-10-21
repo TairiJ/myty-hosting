@@ -6,6 +6,15 @@
 
 ---
 
+## 📚 Single Source of Truth & Documentation Index
+- 🤖 **[AGENTS.md](AGENTS.md):** Comprehensive AI Agent Operating Manual & LLM developer guide.
+- 🏗️ **[System Architecture](docs/ARCHITECTURE.md):** Network topology, reverse proxy routing, SSL automation, and container security.
+- ⚡ **[Agile Workflow & Commit Conventions](docs/AGILE_WORKFLOW.md):** Atomic issue INVEST criteria, Conventional Commits standard, and promotion lifecycle.
+- 🧭 **[Hosting Strategy (ADR)](docs/HOSTING_STRATEGY.md):** Architectural Decision Record evaluating DigitalOcean Droplet vs. GitHub Pages.
+- 📋 **[Product Backlog](docs/BACKLOG.md):** Ready-to-implement atomic user stories formatted for GitHub Issues.
+
+---
+
 ## 🚀 Architecture & Promotion Rules
 
 ### Branch and Promotion Strategy
