@@ -32,5 +32,22 @@ class WebsiteValidationTests(unittest.TestCase):
         self.assertIn('COPY', content, 'Dockerfile must contain COPY instruction')
 
 
+    def test_documentation_integrity(self):
+        required_docs = [
+            self.root / 'AGENTS.md',
+            self.root / 'docs' / 'ARCHITECTURE.md',
+            self.root / 'docs' / 'AGILE_WORKFLOW.md',
+            self.root / 'docs' / 'HOSTING_STRATEGY.md',
+            self.root / 'docs' / 'BACKLOG.md',
+            self.root / '.github' / 'PULL_REQUEST_TEMPLATE.md',
+            self.root / '.github' / 'ISSUE_TEMPLATE' / 'feature_request.md',
+            self.root / '.github' / 'ISSUE_TEMPLATE' / 'bug_report.md',
+            self.root / '.github' / 'ISSUE_TEMPLATE' / 'task.md',
+        ]
+        for doc in required_docs:
+            self.assertTrue(doc.exists(), f'Missing required documentation file: {doc}')
+            self.assertGreater(doc.stat().st_size, 50, f'Documentation file should not be empty: {doc}')
+
+
 if __name__ == '__main__':
     unittest.main()
