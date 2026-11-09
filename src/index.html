@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tizz | myty.world &middot; Artist, Technologist & Creator</title>
-  <meta name="description" content="Official universe of Tizz (@tizz.zyy) - Melodic artist, DJ, master barber, and cloud technologist. Featuring The Jukebox and the 4 Pillars of myty.world.">
+  <meta name="description" content="Official universe of Tizz (@tizz.zyy) - Melodic artist, DJ, master barber, and cloud technologist. Featuring the 4 Pillars and Calculator of myty.world.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -318,13 +318,29 @@
       height: 170px;
       margin-bottom: 20px;
     }
-    .avatar-img {
+    .avatar-monogram {
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--bg-surface-elevated);
+      background: radial-gradient(circle at 35% 35%, #2a2238, #110d1a);
+      border: 4px solid var(--border);
       box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .avatar-monogram:hover {
+      transform: scale(1.04);
+    }
+    .avatar-initials {
+      font-family: var(--font-heading);
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: -2px;
+      text-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+      user-select: none;
     }
     .avatar-badge {
       position: absolute;
@@ -949,7 +965,6 @@
       </a>
       
       <div class="nav-actions">
-        <a href="#jukebox" class="nav-link">The Jukebox</a>
         <a href="#pillars" class="nav-link">4 Pillars</a>
         <a href="#calculator" class="nav-link">Calculator</a>
         <a href="#connect" class="nav-link">Connect</a>
@@ -979,11 +994,11 @@
           I'm <strong>Tizz</strong> (@tizz.zyy) &mdash; an artist crafting melodic, romantic sonic landscapes, a barber curating aesthetic precision, and a technologist engineering cloud infrastructure.
         </p>
         <div class="hero-actions">
-          <a href="#jukebox" class="btn-primary">
-            <span>🎧</span> Listen to The Jukebox
-          </a>
-          <a href="#pillars" class="btn-secondary">
+          <a href="#pillars" class="btn-primary">
             <span>✨</span> Explore Identity Pillars
+          </a>
+          <a href="#calculator" class="btn-secondary">
+            <span>🧮</span> Calculator
           </a>
           <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="btn-secondary">
             <span>📸</span> @tizz.zyy
@@ -991,10 +1006,12 @@
         </div>
       </div>
 
-      <!-- Hero Portrait Card -->
+      <!-- Hero Portrait Card (Monogram / No Photo) -->
       <div class="hero-portrait-card">
         <div class="avatar-wrapper">
-          <img class="avatar-img" src="https://ugc.production.linktr.ee/5706a8e6-e7e2-4793-b909-b5fe8f6d1b02_IMG-9520.jpeg?io=true&size=avatar-v3_0" alt="Tizz Official Portrait" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'">
+          <div class="avatar-monogram">
+            <span class="avatar-initials">T</span>
+          </div>
           <div class="avatar-badge">👑</div>
         </div>
         <div class="portrait-name">Tizz</div>
@@ -1008,84 +1025,6 @@
         <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
           "Blending romantic melodies, street aesthetic, and autonomous cloud systems."
         </p>
-      </div>
-    </section>
-
-    <!-- THE JUKEBOX SECTION -->
-    <section id="jukebox" class="jukebox-section">
-      <div class="jukebox-grid">
-        <div class="album-art-wrap">
-          <img id="albumArt" class="album-art" src="https://ugc.production.linktr.ee/ccc7bc5d-9316-4445-9151-5c6baec5eff1_1000x1000bb.jpeg?io=true&size=thumbnail-stack_v1_0" alt="Black Love Letterz EP Artwork" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80'">
-          <div class="album-badge-ribbon">FEATURED RELEASE</div>
-        </div>
-
-        <div class="jukebox-player">
-          <div class="track-meta">
-            <div>
-              <div class="section-label">THE JUKEBOX &middot; AUDIO DECK</div>
-              <h2 id="currentTrackTitle" class="track-title">Black Love Letterz</h2>
-              <div class="track-artist">Tizz &middot; Single / EP</div>
-            </div>
-            <div class="track-vibe-pill">🌹 Melodic & Romantic</div>
-          </div>
-
-          <!-- Waveform visualizer -->
-          <div id="waveform" class="waveform-visualizer">
-            <div class="wave-bar" style="animation-delay: 0.1s"></div>
-            <div class="wave-bar" style="animation-delay: 0.3s"></div>
-            <div class="wave-bar" style="animation-delay: 0.5s"></div>
-            <div class="wave-bar" style="animation-delay: 0.2s"></div>
-            <div class="wave-bar" style="animation-delay: 0.6s"></div>
-            <div class="wave-bar" style="animation-delay: 0.4s"></div>
-            <div class="wave-bar" style="animation-delay: 0.8s"></div>
-            <div class="wave-bar" style="animation-delay: 0.3s"></div>
-            <div class="wave-bar" style="animation-delay: 0.7s"></div>
-            <div class="wave-bar" style="animation-delay: 0.5s"></div>
-            <div class="wave-bar" style="animation-delay: 0.2s"></div>
-            <div class="wave-bar" style="animation-delay: 0.9s"></div>
-            <div class="wave-bar" style="animation-delay: 0.4s"></div>
-            <div class="wave-bar" style="animation-delay: 0.6s"></div>
-            <div class="wave-bar" style="animation-delay: 0.1s"></div>
-          </div>
-
-          <!-- Audio Controls -->
-          <div class="player-controls">
-            <button id="playBtn" class="play-btn" aria-label="Play/Pause">
-              <span id="playIcon">▶</span>
-            </button>
-            <div class="timeline-container">
-              <div id="timelineBar" class="timeline-bar">
-                <div id="timelineProgress" class="timeline-progress"></div>
-              </div>
-              <div class="time-labels">
-                <span id="currentTime">0:45</span>
-                <span id="totalDuration">2:58</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Streaming Platforms Drawer -->
-          <div class="stream-drawer">
-            <span class="stream-drawer-label">STREAM ON YOUR FAVORITE PLATFORM:</span>
-            <div class="stream-badges-grid">
-              <a href="https://music.apple.com/us/album/black-love-letterz-single/6791419445" target="_blank" rel="noopener" class="stream-badge">
-                <span>🍎</span> Apple Music
-              </a>
-              <a href="https://open.spotify.com/artist/6l9lah6kIUt7ZmYcpCALyx?si=3nIA3xdwS0STKG3hwmTzwQ" target="_blank" rel="noopener" class="stream-badge">
-                <span>🟢</span> Spotify
-              </a>
-              <a href="https://tiktok.com/@tizzys.burner" target="_blank" rel="noopener" class="stream-badge">
-                <span>🎵</span> TikTok
-              </a>
-              <a href="https://snapchat.com/t/QI2tIH3B" target="_blank" rel="noopener" class="stream-badge">
-                <span>👻</span> Snapchat
-              </a>
-              <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="stream-badge">
-                <span>📸</span> Instagram
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1314,7 +1253,7 @@
       }
     });
 
-    // 2. The Jukebox Interactive Audio Player Simulation
+    // 2. The Jukebox Interactive Audio Player Simulation (Guarded for draft mode)
     const playBtn = document.getElementById('playBtn');
     const playIcon = document.getElementById('playIcon');
     const waveform = document.getElementById('waveform');
@@ -1322,46 +1261,48 @@
     const timelineBar = document.getElementById('timelineBar');
     const currentTimeElem = document.getElementById('currentTime');
 
-    let isPlaying = false;
-    let currentSeconds = 45;
-    const totalSeconds = 178; // 2:58
-    let intervalTimer = null;
+    if (playBtn && timelineBar) {
+      let isPlaying = false;
+      let currentSeconds = 45;
+      const totalSeconds = 178; // 2:58
+      let intervalTimer = null;
 
-    function formatTime(sec) {
-      const m = Math.floor(sec / 60);
-      const s = Math.floor(sec % 60);
-      return `${m}:${s < 10 ? '0' : ''}${s}`;
-    }
-
-    playBtn.addEventListener('click', () => {
-      isPlaying = !isPlaying;
-      if (isPlaying) {
-        playIcon.textContent = '⏸';
-        waveform.classList.add('is-playing');
-        intervalTimer = setInterval(() => {
-          if (currentSeconds < totalSeconds) {
-            currentSeconds++;
-            currentTimeElem.textContent = formatTime(currentSeconds);
-            timelineProgress.style.width = `${(currentSeconds / totalSeconds) * 100}%`;
-          } else {
-            currentSeconds = 0;
-          }
-        }, 1000);
-      } else {
-        playIcon.textContent = '▶';
-        waveform.classList.remove('is-playing');
-        clearInterval(intervalTimer);
+      function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
       }
-    });
 
-    timelineBar.addEventListener('click', (e) => {
-      const rect = timelineBar.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const pct = Math.max(0, Math.min(1, clickX / rect.width));
-      currentSeconds = Math.floor(pct * totalSeconds);
-      currentTimeElem.textContent = formatTime(currentSeconds);
-      timelineProgress.style.width = `${pct * 100}%`;
-    });
+      playBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+          playIcon.textContent = '⏸';
+          waveform.classList.add('is-playing');
+          intervalTimer = setInterval(() => {
+            if (currentSeconds < totalSeconds) {
+              currentSeconds++;
+              currentTimeElem.textContent = formatTime(currentSeconds);
+              timelineProgress.style.width = `${(currentSeconds / totalSeconds) * 100}%`;
+            } else {
+              currentSeconds = 0;
+            }
+          }, 1000);
+        } else {
+          playIcon.textContent = '▶';
+          waveform.classList.remove('is-playing');
+          clearInterval(intervalTimer);
+        }
+      });
+
+      timelineBar.addEventListener('click', (e) => {
+        const rect = timelineBar.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const pct = Math.max(0, Math.min(1, clickX / rect.width));
+        currentSeconds = Math.floor(pct * totalSeconds);
+        currentTimeElem.textContent = formatTime(currentSeconds);
+        timelineProgress.style.width = `${pct * 100}%`;
+      });
+    }
   </script>
 
   <!-- ── Calculator Engine ── -->

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Jukebox [Draft Preview] | myty.world</title>
+  <meta name="description" content="The Jukebox - Audio deck and music player for Tizz (@tizz.zyy). Unlinked preview release.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0a0812;
+      --bg-surface: #13101c;
+      --bg-surface-elevated: #1b1728;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(212, 175, 55, 0.35);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-gold: #d4af37;
+      --accent-violet: #8b5cf6;
+      --accent-cyan: #38bdf8;
+      --shadow-card: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-heading: 'Playfair Display', Georgia, serif;
+    }
+    [data-theme="light"] {
+      --bg-base: #faf8f5;
+      --bg-surface: #f3efe8;
+      --bg-surface-elevated: #ffffff;
+      --border: rgba(0, 0, 0, 0.08);
+      --border-accent: rgba(184, 134, 11, 0.4);
+      --text-primary: #1e1b29;
+      --text-secondary: #64748b;
+      --shadow-card: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+    .draft-bar {
+      background: linear-gradient(90deg, #d4af37, #8b5cf6);
+      color: #000;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    header {
+      background: rgba(19, 16, 28, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-link {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-tag {
+      font-size: 0.75rem;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid var(--border-accent);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-family: var(--font-body);
+    }
+    .theme-toggle-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    .jukebox-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow-card);
+    }
+    .jukebox-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .jukebox-grid { grid-template-columns: 1fr; }
+    }
+    .album-art-wrap {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+      aspect-ratio: 1/1;
+      background: #110d1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .album-art-placeholder {
+      font-size: 4rem;
+    }
+    .album-badge-ribbon {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(10, 8, 18, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-accent);
+      color: var(--accent-gold);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .section-label {
+      color: var(--accent-gold);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+    .track-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .track-artist {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+    .waveform-visualizer {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 48px;
+      padding: 10px 16px;
+      background: var(--bg-surface-elevated);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .wave-bar {
+      flex: 1;
+      background: var(--border-accent);
+      border-radius: 99px;
+      height: 8px;
+      transition: height 0.2s ease;
+    }
+    .waveform-visualizer.is-playing .wave-bar {
+      animation: pulseWave 1s infinite alternate ease-in-out;
+    }
+    @keyframes pulseWave {
+      0% { height: 6px; background: var(--border-accent); }
+      100% { height: 38px; background: var(--accent-gold); }
+    }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .play-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      color: #000;
+      border: none;
+      font-size: 1.2rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+      transition: transform 0.2s;
+    }
+    .play-btn:hover { transform: scale(1.06); }
+    .timeline-container { flex: 1; }
+    .timeline-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+    .timeline-progress {
+      width: 25%;
+      height: 100%;
+      background: var(--accent-gold);
+      border-radius: 999px;
+    }
+    .time-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+    .stream-drawer-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .stream-badges-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .stream-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .stream-badge:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <div class="draft-bar">🔒 Unlinked Draft Preview &middot; Not on Main Navigation</div>
+  <header>
+    <div class="nav-container">
+      <a href="/" class="brand-link">
+        <span>myty.world</span>
+        <span class="brand-tag">The Jukebox (Draft)</span>
+      </a>
+      <button id="themeToggle" class="theme-toggle-btn">Mood</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="jukebox-section">
+      <div class="jukebox-grid">
+        <div class="album-art-wrap">
+          <div class="album-art-placeholder">🎧</div>
+          <div class="album-badge-ribbon">FEATURED RELEASE</div>
+        </div>
+
+        <div class="jukebox-player">
+          <div class="section-label">THE JUKEBOX &middot; AUDIO DECK</div>
+          <h1 class="track-title">Black Love Letterz</h1>
+          <div class="track-artist">Tizz &middot; Single / EP</div>
+
+          <!-- Waveform visualizer -->
+          <div id="waveform" class="waveform-visualizer">
+            <div class="wave-bar" style="animation-delay: 0.1s"></div>
+            <div class="wave-bar" style="animation-delay: 0.3s"></div>
+            <div class="wave-bar" style="animation-delay: 0.5s"></div>
+            <div class="wave-bar" style="animation-delay: 0.2s"></div>
+            <div class="wave-bar" style="animation-delay: 0.6s"></div>
+            <div class="wave-bar" style="animation-delay: 0.4s"></div>
+            <div class="wave-bar" style="animation-delay: 0.8s"></div>
+            <div class="wave-bar" style="animation-delay: 0.3s"></div>
+            <div class="wave-bar" style="animation-delay: 0.7s"></div>
+            <div class="wave-bar" style="animation-delay: 0.5s"></div>
+            <div class="wave-bar" style="animation-delay: 0.2s"></div>
+            <div class="wave-bar" style="animation-delay: 0.9s"></div>
+          </div>
+
+          <!-- Audio Controls -->
+          <div class="player-controls">
+            <button id="playBtn" class="play-btn" aria-label="Play/Pause">
+              <span id="playIcon">▶</span>
+            </button>
+            <div class="timeline-container">
+              <div id="timelineBar" class="timeline-bar">
+                <div id="timelineProgress" class="timeline-progress"></div>
+              </div>
+              <div class="time-labels">
+                <span id="currentTime">0:45</span>
+                <span id="totalDuration">2:58</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Streaming Platforms Drawer -->
+          <div>
+            <span class="stream-drawer-label">STREAM ON PLATFORMS:</span>
+            <div class="stream-badges-grid">
+              <a href="https://music.apple.com/us/album/black-love-letterz-single/6791419445" target="_blank" rel="noopener" class="stream-badge">
+                <span>🍎</span> Apple Music
+              </a>
+              <a href="https://open.spotify.com/artist/6l9lah6kIUt7ZmYcpCALyx?si=3nIA3xdwS0STKG3hwmTzwQ" target="_blank" rel="noopener" class="stream-badge">
+                <span>🟢</span> Spotify
+              </a>
+              <a href="https://tiktok.com/@tizzys.burner" target="_blank" rel="noopener" class="stream-badge">
+                <span>🎵</span> TikTok
+              </a>
+              <a href="https://snapchat.com/t/QI2tIH3B" target="_blank" rel="noopener" class="stream-badge">
+                <span>👻</span> Snapchat
+              </a>
+              <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="stream-badge">
+                <span>📸</span> Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Tizz &middot; <strong>myty.world</strong> &middot; Draft Audio Player</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElem = document.documentElement;
+    themeToggle.addEventListener('click', () => {
+      const cur = htmlElem.getAttribute('data-theme');
+      htmlElem.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+    });
+
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const waveform = document.getElementById('waveform');
+    const timelineProgress = document.getElementById('timelineProgress');
+    const timelineBar = document.getElementById('timelineBar');
+    const currentTimeElem = document.getElementById('currentTime');
+
+    let isPlaying = false;
+    let currentSeconds = 45;
+    const totalSeconds = 178;
+    let intervalTimer = null;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon.textContent = '⏸';
+        waveform.classList.add('is-playing');
+        intervalTimer = setInterval(() => {
+          if (currentSeconds < totalSeconds) {
+            currentSeconds++;
+            currentTimeElem.textContent = formatTime(currentSeconds);
+            timelineProgress.style.width = `${(currentSeconds / totalSeconds) * 100}%`;
+          } else {
+            currentSeconds = 0;
+          }
+        }, 1000);
+      } else {
+        playIcon.textContent = '▶';
+        waveform.classList.remove('is-playing');
+        clearInterval(intervalTimer);
+      }
+    });
+
+    timelineBar.addEventListener('click', (e) => {
+      const rect = timelineBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = Math.max(0, Math.min(1, clickX / rect.width));
+      currentSeconds = Math.floor(pct * totalSeconds);
+      currentTimeElem.textContent = formatTime(currentSeconds);
+      timelineProgress.style.width = `${pct * 100}%`;
+    });
+  </script>
+</body>
+</html>
