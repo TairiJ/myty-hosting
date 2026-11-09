@@ -1450,7 +1450,10 @@
         setExpr('');
       }
       function doDel() {
-        if (justEvaled) { setDisplay(''); return; }
+        if (justEvaled) {
+          doAC();
+          return;
+        }
         if (display.length <= 1) { setDisplay(''); }
         else { setDisplay(display.slice(0, -1)); }
       }

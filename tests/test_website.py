@@ -49,5 +49,12 @@ class WebsiteValidationTests(unittest.TestCase):
             self.assertGreater(doc.stat().st_size, 50, f'Documentation file should not be empty: {doc}')
 
 
+    def test_calculator_del_resets_queue_after_eval(self):
+        content = self.html_file.read_text(encoding='utf-8')
+        # Verify doDel handles justEvaled by calling doAC() to clear the operation queue
+        self.assertIn('function doDel()', content)
+        self.assertIn('if (justEvaled) {\n          doAC();', content)
+
+
 if __name__ == '__main__':
     unittest.main()
