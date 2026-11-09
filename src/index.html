@@ -1317,6 +1317,7 @@
       let awaitingOperand = false;
       let awaitingPow = false;
       let powBase    = null;
+      let isError    = false;
       let history    = JSON.parse(localStorage.getItem('calcHistory') || '[]');
 
       const resultEl = document.getElementById('calcResult');
@@ -1348,12 +1349,13 @@
         resultEl.classList.remove('error');
       }
       function setError(msg) {
+        isError = true;
         display = msg;
         resultEl.textContent = msg;
         resultEl.classList.add('error');
         expr = '';
         exprEl.innerHTML = '&nbsp;';
-        operand1 = null; operator = null; justEvaled = false; awaitingOperand = false; awaitingPow = false;
+        operand1 = null; operator = null; justEvaled = false; awaitingOperand = false; awaitingPow = false; powBase = null;
       }
       function setExpr(str) { exprEl.textContent = str || '\u00a0'; }
       function round(n) {
@@ -1373,6 +1375,18 @@
 
       // ── Actions ──────────────────────────────────────
       function inputNum(v) {
+        if (isError) {
+          isError = false;
+          display = v;
+          operand1 = null;
+          operator = null;
+          justEvaled = false;
+          awaitingOperand = false;
+          awaitingPow = false;
+          powBase = null;
+          setDisplay(display);
+          return;
+        }
         if (justEvaled || awaitingOperand) {
           display = v;
           justEvaled = false;
@@ -1385,6 +1399,7 @@
         setDisplay(display);
       }
       function inputDecimal() {
+        if (isError) return;
         if (justEvaled || awaitingOperand) {
           display = '0.';
           justEvaled = false;
@@ -1397,6 +1412,7 @@
         setDisplay(display);
       }
       function inputOp(rawOp) {
+        if (isError) return;
         const op = normalizeOp(rawOp);
 
         // Pressing another operator before typing a number swaps the operator
@@ -1424,7 +1440,7 @@
         setDisplay(''); // Console is empty after pressing an operator
       }
       function doEquals() {
-        if (operator === null || justEvaled || awaitingOperand || display === '') return;
+        if (isError || operator === null || justEvaled || awaitingOperand || display === '') return;
         const cur = parseFloat(display);
         setExpr(`${operand1} ${getOpSymbol(operator)} ${cur} =`);
         const result = compute(operand1, operator, cur);
@@ -1439,6 +1455,7 @@
         awaitingPow = false;
       }
       function doAC() {
+        isError = false;
         display = '';
         expr = '';
         operand1 = null;
@@ -1451,7 +1468,7 @@
         setExpr('');
       }
       function doDel() {
-        if (justEvaled) {
+        if (isError || justEvaled) {
           doAC();
           return;
         }
@@ -1459,13 +1476,14 @@
         else { setDisplay(display.slice(0, -1)); }
       }
       function toggleSign() {
-        if (!display) return;
+        if (isError || !display) return;
         const n = parseFloat(display);
         if (!isNaN(n)) setDisplay(round(-n));
       }
 
       // ── Scientific ───────────────────────────────────
       function doSci(fn) {
+        if (isError) return;
         const n = parseFloat(display || (operand1 !== null ? operand1 : 0));
         let ans, label;
         switch(fn) {
@@ -1504,6 +1522,7 @@
       // If awaiting power base and user presses =, complete xʸ
       const _origEquals = doEquals;
       function smartEquals() {
+        if (isError) return;
         if (awaitingPow) {
           if (display === '') return;
           const exp = parseFloat(display);
@@ -1536,7 +1555,7 @@
           const item = document.createElement('div');
           item.className = 'calc-history-item';
           item.innerHTML = `<div class="h-expr">${h.expression}</div><div class="h-ans">${h.answer}</div>`;
-          item.addEventListener('click', () => { setDisplay(h.answer); justEvaled = true; });
+          item.addEventListener('click', () => { isError = false; setDisplay(h.answer); justEvaled = true; });
           histList.prepend(item);
         });
       }

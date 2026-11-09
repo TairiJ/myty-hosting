@@ -51,20 +51,31 @@ class WebsiteValidationTests(unittest.TestCase):
 
     def test_calculator_del_resets_queue_after_eval(self):
         content = self.html_file.read_text(encoding='utf-8')
-        # Verify doDel handles justEvaled by calling doAC() to clear the operation queue
+        # Verify doDel handles isError and justEvaled by calling doAC() to clear the operation queue
         self.assertIn('function doDel()', content)
-        self.assertIn('if (justEvaled) {\n          doAC();', content)
+        self.assertIn('if (isError || justEvaled) {\n          doAC();', content)
 
     def test_calculator_equals_does_not_repeat_after_result(self):
         content = self.html_file.read_text(encoding='utf-8')
         # Verify doEquals guards against repeated evaluation and clears operator
-        self.assertIn('if (operator === null || justEvaled || awaitingOperand || display === \'\') return;', content)
+        self.assertIn('if (isError || operator === null || justEvaled || awaitingOperand || display === \'\') return;', content)
         self.assertIn('operator = null;', content)
 
     def test_calculator_equals_requires_second_operand(self):
         content = self.html_file.read_text(encoding='utf-8')
         # Verify doEquals requires an actual second operand before calculating
         self.assertIn('const cur = parseFloat(display);', content)
+
+    def test_calculator_error_state_handling(self):
+        content = self.html_file.read_text(encoding='utf-8')
+        # Verify isError state variable exists
+        self.assertIn('let isError', content)
+        # Verify inputNum resets error state on number typing
+        self.assertIn('if (isError) {\n          isError = false;\n          display = v;', content)
+        # Verify guards against operators, decimals, and sci functions during error state
+        self.assertIn('function inputDecimal() {\n        if (isError) return;', content)
+        self.assertIn('function inputOp(rawOp) {\n        if (isError) return;', content)
+        self.assertIn('function doSci(fn) {\n        if (isError) return;', content)
 
 
 if __name__ == '__main__':
