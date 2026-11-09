@@ -58,8 +58,13 @@ class WebsiteValidationTests(unittest.TestCase):
     def test_calculator_equals_does_not_repeat_after_result(self):
         content = self.html_file.read_text(encoding='utf-8')
         # Verify doEquals guards against repeated evaluation and clears operator
-        self.assertIn('if (operator === null || justEvaled) return;', content)
+        self.assertIn('if (operator === null || justEvaled || awaitingOperand || display === \'\') return;', content)
         self.assertIn('operator = null;', content)
+
+    def test_calculator_equals_requires_second_operand(self):
+        content = self.html_file.read_text(encoding='utf-8')
+        # Verify doEquals requires an actual second operand before calculating
+        self.assertIn('const cur = parseFloat(display);', content)
 
 
 if __name__ == '__main__':

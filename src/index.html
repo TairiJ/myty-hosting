@@ -1424,8 +1424,8 @@
         setDisplay(''); // Console is empty after pressing an operator
       }
       function doEquals() {
-        if (operator === null || justEvaled) return;
-        const cur = display === '' ? (operand1 !== null ? operand1 : 0) : parseFloat(display);
+        if (operator === null || justEvaled || awaitingOperand || display === '') return;
+        const cur = parseFloat(display);
         setExpr(`${operand1} ${getOpSymbol(operator)} ${cur} =`);
         const result = compute(operand1, operator, cur);
         if (result === null) { setError('Cannot divide by 0'); return; }
@@ -1505,7 +1505,8 @@
       const _origEquals = doEquals;
       function smartEquals() {
         if (awaitingPow) {
-          const exp = parseFloat(display || '0');
+          if (display === '') return;
+          const exp = parseFloat(display);
           const ans = round(powBase ** exp);
           const label = `${powBase}^${exp}`;
           setExpr(label + ' =');
