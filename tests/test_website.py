@@ -55,6 +55,12 @@ class WebsiteValidationTests(unittest.TestCase):
         self.assertIn('function doDel()', content)
         self.assertIn('if (justEvaled) {\n          doAC();', content)
 
+    def test_calculator_equals_does_not_repeat_after_result(self):
+        content = self.html_file.read_text(encoding='utf-8')
+        # Verify doEquals guards against repeated evaluation and clears operator
+        self.assertIn('if (operator === null || justEvaled) return;', content)
+        self.assertIn('operator = null;', content)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1424,7 +1424,7 @@
         setDisplay(''); // Console is empty after pressing an operator
       }
       function doEquals() {
-        if (operator === null) return;
+        if (operator === null || justEvaled) return;
         const cur = display === '' ? (operand1 !== null ? operand1 : 0) : parseFloat(display);
         setExpr(`${operand1} ${getOpSymbol(operator)} ${cur} =`);
         const result = compute(operand1, operator, cur);
@@ -1433,6 +1433,7 @@
         pushHistory(`${operand1} ${getOpSymbol(operator)} ${cur}`, ans);
         setDisplay(ans);
         operand1 = ans;
+        operator = null;
         justEvaled = true;
         awaitingOperand = false;
         awaitingPow = false;
