@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MYTY World // Design Lab & UX Review Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07060c;
+      --bg-surface: #0f0d19;
+      --bg-card: #151324;
+      --bg-card-hover: #1c1930;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(139, 92, 246, 0.3);
+      --accent: #8b5cf6;
+      --accent-glow: rgba(139, 92, 246, 0.25);
+      --cyan: #06b6d4;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 120px;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    .font-brand { font-family: 'Syne', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Top Sticky Control Bar */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 13, 25, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+    .env-tag {
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--cyan);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tally-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+    }
+    .tally-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .tally-pill.approved { color: var(--emerald); border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.08); }
+    .tally-pill.rejected { color: var(--rose); border-color: rgba(244, 63, 94, 0.3); background: rgba(244, 63, 94, 0.08); }
+    .tally-pill.pending  { color: var(--amber); border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.08); }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #6d28d9);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(139, 92, 246, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Sub-nav Jump Bar */
+    .jump-nav {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .jump-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .jump-nav a:hover {
+      color: #fff;
+      background: rgba(139, 92, 246, 0.15);
+      border-color: var(--border-accent);
+    }
+
+    /* Hero intro */
+    .hero {
+      max-width: 1200px;
+      margin: 40px auto 30px;
+      padding: 0 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 780px;
+    }
+
+    /* Section Cards */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .idea-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.3s ease;
+      position: relative;
+    }
+    .idea-card.status-approved {
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+    }
+    .idea-card.status-rejected {
+      border-color: rgba(244, 63, 94, 0.4);
+      opacity: 0.85;
+    }
+
+    /* Card Header */
+    .idea-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+    .idea-title-area {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ref-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+    .ref-meta .example-no {
+      color: var(--cyan);
+    }
+    .ref-meta .role-tag {
+      color: var(--text-dim);
+    }
+    .idea-title-area h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .principle-quote {
+      font-size: 0.88rem;
+      color: var(--amber);
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--amber);
+      padding: 6px 12px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 4px;
+    }
+
+    /* Prototype Sandbox Container */
+    .prototype-sandbox {
+      padding: 28px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .sandbox-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sandbox-label::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+    }
+
+    /* Voting / Feedback Panel */
+    .feedback-panel {
+      padding: 20px 28px;
+      background: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .feedback-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .vote-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vote-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .vote-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+    .vote-btn.active-up {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--emerald);
+      color: var(--emerald);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.3);
+    }
+    .vote-btn.active-down {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--rose);
+      color: var(--rose);
+      box-shadow: 0 0 14px rgba(244, 63, 94, 0.3);
+    }
+
+    .accept-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .accept-toggle-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--emerald);
+      cursor: pointer;
+    }
+
+    .notes-box {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      resize: vertical;
+      min-height: 48px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .notes-box:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    /* ── Prototype 1: Result-First Cards & Services ── */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: all 0.25s;
+    }
+    .metric-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+    .metric-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald);
+      margin-bottom: 10px;
+    }
+    .metric-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .metric-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .package-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .package-card.highlight {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.1), rgba(0, 0, 0, 0.3));
+    }
+    .package-title { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .package-price { font-size: 1.4rem; font-weight: 800; color: var(--cyan); }
+    .package-features { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem; color: var(--text-muted); }
+    .package-features li::before { content: '✓ '; color: var(--emerald); font-weight: bold; }
+
+    /* ── Prototype 2: Live Availability Banner & Sector Filter ── */
+    .availability-demo-banner {
+      background: linear-gradient(90deg, #18142b, #100d1e);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+    .sector-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .sector-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sector-pill:hover, .sector-pill.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* ── Prototype 3: Split-Screen & Tech Stack Pills ── */
+    .split-view-sim {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      height: 280px;
+      background: var(--bg-card);
+    }
+    @media (max-width: 768px) {
+      .split-view-sim { grid-template-columns: 1fr; height: auto; }
+    }
+    .split-left-pane {
+      background: #0d0b17;
+      border-right: 1px solid var(--border);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sim-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+    .sim-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .sim-nav-link.active {
+      color: #fff;
+      font-weight: 700;
+    }
+    .sim-nav-link.active::before {
+      content: '—';
+      color: var(--cyan);
+      font-weight: 900;
+    }
+    .split-right-pane {
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .stack-pills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .stack-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      background: rgba(139, 92, 246, 0.12);
+      color: #c4b5fd;
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    /* ── Prototype 4: How Site Is Built Card ── */
+    .arch-card {
+      background: linear-gradient(135deg, #100e1f, #0d0b18);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .arch-flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .arch-step {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      text-align: center;
+    }
+    .arch-step-icon { font-size: 1.3rem; margin-bottom: 6px; }
+    .arch-step-name { font-size: 0.85rem; font-weight: 700; color: #fff; }
+    .arch-step-detail { font-size: 0.75rem; color: var(--text-dim); }
+
+    /* ── Prototype 5: Timeline & The Impossible List ── */
+    .timeline-wrap {
+      position: relative;
+      padding-left: 24px;
+      border-left: 2px solid var(--border-accent);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .timeline-item {
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -31px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+    .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan); font-weight: 600; }
+    .timeline-title { font-size: 0.95rem; font-weight: 700; color: #fff; }
+    .timeline-detail { font-size: 0.82rem; color: var(--text-muted); }
+    .impossible-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+    }
+    .impossible-item {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.82rem;
+    }
+    .imp-status {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .imp-status.done { background: rgba(16, 185, 129, 0.2); color: var(--emerald); }
+    .imp-status.wip { background: rgba(245, 158, 11, 0.2); color: var(--amber); }
+
+    /* ── Prototype 6: Recruiter Mode Switch ── */
+    .recruiter-mode-demo {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #0f0d1a;
+      transition: all 0.3s ease;
+    }
+    .mode-bar {
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .toggle-switch-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #374151; transition: .3s; border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px;
+      background-color: white; transition: .3s; border-radius: 50%;
+    }
+    input:checked + .slider { background-color: var(--emerald); }
+    input:checked + .slider:before { transform: translateX(22px); }
+
+    .recruiter-content {
+      padding: 24px;
+      transition: all 0.3s;
+    }
+    .recruiter-content.plain-mode {
+      background: #ffffff;
+      color: #111827;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .recruiter-content.plain-mode h3 { color: #111827; }
+    .recruiter-content.plain-mode p, .recruiter-content.plain-mode li { color: #374151; }
+    .recruiter-content.plain-mode .plain-badge {
+      background: #e5e7eb;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+
+    /* Modal / Export Drawer */
+    .export-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .export-modal-backdrop.open { display: flex; }
+    .export-modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 650px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-body textarea {
+      width: 100%;
+      height: 280px;
+      background: #000;
+      color: #34d399;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      resize: none;
+    }
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+      display: none;
+      z-index: 3000;
+      animation: toast-in 0.3s forwards;
+    }
+    @keyframes toast-in {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Bar -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <a href="/" class="brand-pill">
+        <span class="brand-badge">M</span>
+        <span>MYTY World</span>
+      </a>
+      <span class="env-tag">QA Design Studio</span>
+      <div class="tally-group">
+        <span class="tally-pill approved" id="approvedCount">0 Approved 👍</span>
+        <span class="tally-pill rejected" id="rejectedCount">0 Rejected 👎</span>
+        <span class="tally-pill pending" id="pendingCount">6 Pending</span>
+      </div>
+    </div>
+    <div class="top-bar-right">
+      <button class="btn btn-primary" onclick="openExportModal()">
+        📋 Export Review for Antigravity
+      </button>
+      <a href="/" class="btn btn-secondary">
+        &larr; View Live Site
+      </a>
+    </div>
+  </header>
+
+  <!-- Quick Jump Sub-Navigation -->
+  <nav class="jump-nav" aria-label="Jump to idea">
+    <a href="#idea-1">#1 Result Metrics & Services</a>
+    <a href="#idea-2">#4 Availability & Filters</a>
+    <a href="#idea-3">#17 Split-Screen & Stack Pills</a>
+    <a href="#idea-4">#18 Side Projects & Arch Card</a>
+    <a href="#idea-5">#19 Timeline & Impossible List</a>
+    <a href="#idea-6">#21 Recruiter Plain Mode</a>
+  </nav>
+
+  <!-- Hero introduction -->
+  <section class="hero">
+    <div class="hero-badge">⚡ Interactive Feedback Playground</div>
+    <h1>2026 Portfolio Role Integration Lab</h1>
+    <p>
+      Test interactive prototypes derived from the <strong>Top 2026 Portfolio Website Roles</strong> (Examples 1, 4, 17, 18, 19, & 21). 
+      Vote <strong style="color:var(--emerald);">thumbs up</strong> or <strong style="color:var(--rose);">thumbs down</strong>, check boxes to accept, add custom notes, and click <strong>"Export Review"</strong> to generate the prompt for Antigravity.
+    </p>
+  </section>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- ════════════ IDEA 1: JESSICA GOLDMAN ════════════ -->
+    <article class="idea-card" id="idea-1" data-idea-id="idea-1" data-idea-title="Result-First Metrics & Transparent Service Packages">
+      <div class="idea-header">
+        <div class="idea-title-area">
+          <div class="ref-meta">
+            <span class="example-no">Example #1</span>
+            <span class="role-tag">Jessica Goldman &middot; Growth UX &middot; Framer</span>
+          </div>
+          <h2>1. Result-First Case Studies & Transparent Services</h2>
+          <div class="principle-quote">
+            &ldquo;State the result and the price before anyone has to ask. Case studies open with business outcome before a single wireframe.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <!-- Prototype Sandbox -->
+      <div class="prototype-sandbox">
+        <div class="sandbox-label">Interactive Prototype Preview</div>
+        
+        <!-- Live Metric Cards -->
+        <div class="metric-grid">
+          <div class="metric-card">
+            <span class="metric-badge">Production Impact</span>
+            <div class="metric-val">99.98%</div>
+            <div class="metric-desc">Continuous uptime verified across DigitalOcean droplet containers & Traefik edge.</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-badge">Automation Gain</span>
+            <div class="metric-val">&lt; 45s</div>
+            <div class="metric-desc">Automated CI/CD validation, image build, and atomic SSH zero-downtime deployment.</div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-badge">Security Audit</span>
+            <div class="metric-val">100% Non-Root</div>
+            <div class="metric-desc">Direct root SSH and password login strictly rejected; isolated deployer keys only.</div>
+          </div>
+        </div>
+
+        <!-- Transparent Packages / Services -->
+        <div class="packages-grid">
+          <div class="package-card">
+            <div class="package-title">Core Web Engineering</div>
+            <div class="package-price">Full-Stack</div>
+            <ul class="package-features">
+              <li>Atomic SPA Architecture & Semantic HTML</li>
+              <li>Interactive Vanilla JS Tools (Calculator/Jukebox)</li>
+              <li>High Performance & Zero-Bloat Assets</li>
+            </ul>
+          </div>
+          <div class="package-card highlight">
+            <div class="package-title">DevOps & Cloud Hosting</div>
+            <div class="package-price">Production Grade</div>
+            <ul class="package-features">
+              <li>Dockerized Traefik v3 Reverse Proxy</li>
+              <li>Automated Let's Encrypt Wildcard SSL</li>
+              <li>Isolated Multi-Environment (QA & Production)</li>
+            </ul>
+          </div>
+          <div class="package-card">
+            <div class="package-title">Custom Tool Prototyping</div>
+            <div class="package-price">SOW on Request</div>
+            <ul class="package-features">
+              <li>Client-Side Mathematical Engines</li>
+              <li>Audio Synthesis & Custom Media Players</li>
+              <li>Instant Discovery Call Booking CTA</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feedback Controls -->
+      <div class="feedback-panel">
+        <div class="feedback-row">
+          <label class="accept-toggle-wrap">
+            <input type="checkbox" class="idea-accept-cb" onchange="updateVote('idea-1')">
+            <span>Include Result-First Metrics & Service Packages</span>
+          </label>
+          <div class="vote-buttons">
+            <button class="vote-btn" onclick="castVote('idea-1', 'up')" id="btn-up-idea-1">👍 Upvote (Love it)</button>
+            <button class="vote-btn" onclick="castVote('idea-1', 'down')" id="btn-down-idea-1">👎 Downvote (Skip)</button>
+          </div>
+        </div>
+        <textarea class="notes-box" placeholder="Notes or modifications for Antigravity (e.g., 'Love the uptime stat, but remove pricing cards')..." oninput="updateNotes('idea-1', this.value)"></textarea>
+      </div>
+    </article>
+
+    <!-- ════════════ IDEA 2: ANDY CLARKE ════════════ -->
+    <article class="idea-card" id="idea-2" data-idea-id="idea-2" data-idea-title="Live Availability Banner & Sector Challenge Filtering">
+      <div class="idea-header">
+        <div class="idea-title-area">
+          <div class="ref-meta">
+            <span class="example-no">Example #4</span>
+            <span class="role-tag">Andy Clarke (Stuff &amp; Nonsense) &middot; Web Designer &middot; Eleventy</span>
+          </div>
+          <h2>2. Live Availability Status & Challenge-Driven Filtering</h2>
+          <div class="principle-quote">
+            &ldquo;Put your availability where nobody can miss it. The site answers a client's first question before it is asked.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <div class="prototype-sandbox">
+        <div class="sandbox-label">Interactive Prototype Preview</div>
+
+        <!-- Availability Banner Demo -->
+        <div class="availability-demo-banner">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span>🟢 Status: Taking on select cloud engineering &amp; web projects for Q1 2027</span>
+          </div>
+          <button class="btn btn-secondary" style="font-size: 0.78rem;" onclick="toggleDemoAvailability(this)">
+            Toggle Demo Status
+          </button>
+        </div>
+
+        <!-- Problem / Challenge Filter Bar -->
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">
+          <strong>Filter Work by Challenge Solved:</strong> (Click to test active state)
+        </p>
+        <div class="sector-filter-bar">
+          <span class="sector-pill active" onclick="selectSector(this)">All Work</span>
+          <span class="sector-pill" onclick="selectSector(this)">Cloud Automation &amp; CI/CD</span>
+          <span class="sector-pill" onclick="selectSector(this)">Interactive Mathematical UI</span>
+          <span class="sector-pill" onclick="selectSector(this)">Zero-Downtime Multi-Hosting</span>
+          <span class="sector-pill" onclick="selectSector(this)">Security &amp; Hardened SSH</span>
+        </div>
+      </div>
+
+      <div class="feedback-panel">
+        <div class="feedback-row">
+          <label class="accept-toggle-wrap">
+            <input type="checkbox" class="idea-accept-cb" onchange="updateVote('idea-2')">
+            <span>Include Live Availability Banner & Challenge Filtering</span>
+          </label>
+          <div class="vote-buttons">
+            <button class="vote-btn" onclick="castVote('idea-2', 'up')" id="btn-up-idea-2">👍 Upvote (Love it)</button>
+            <button class="vote-btn" onclick="castVote('idea-2', 'down')" id="btn-down-idea-2">👎 Downvote (Skip)</button>
+          </div>
+        </div>
+        <textarea class="notes-box" placeholder="Notes for Antigravity (e.g., 'Put the green availability pill directly into the header nav')..." oninput="updateNotes('idea-2', this.value)"></textarea>
+      </div>
+    </article>
+
+    <!-- ════════════ IDEA 3: BRITTANY CHIANG ════════════ -->
+    <article class="idea-card" id="idea-3" data-idea-id="idea-3" data-idea-title="Split-Screen Sticky Viewport, Tech Stack Pills & Archive Table">
+      <div class="idea-header">
+        <div class="idea-title-area">
+          <div class="ref-meta">
+            <span class="example-no">Example #17</span>
+            <span class="role-tag">Brittany Chiang &middot; Accessibility Engineer &middot; Next.js</span>
+          </div>
+          <h2>3. Sticky Split-Screen Nav, Tech Stack Pills &amp; Archive</h2>
+          <div class="principle-quote">
+            &ldquo;Make the work history and the portfolio the same page. Fixed left nav with scroll-spy, pill tags for tools, and an accessible archive table.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <div class="prototype-sandbox">
+        <div class="sandbox-label">Interactive Prototype Preview (Mini Simulator)</div>
+
+        <div class="split-view-sim">
+          <!-- Left Pane -->
+          <div class="split-left-pane">
+            <div>
+              <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 2px;">Tairi J.</h3>
+              <p style="font-size: 0.78rem; color: var(--accent);">Cloud &amp; Web Systems Engineer</p>
+            </div>
+            <ul class="sim-nav-list">
+              <li class="sim-nav-link active" onclick="activateSimLink(this)">About &amp; Mission</li>
+              <li class="sim-nav-link" onclick="activateSimLink(this)">Production Infrastructure</li>
+              <li class="sim-nav-link" onclick="activateSimLink(this)">Interactive Tools</li>
+              <li class="sim-nav-link" onclick="activateSimLink(this)">Project Archive</li>
+            </ul>
+            <div style="font-size: 0.72rem; color: var(--text-dim);">
+              <a href="#calculator" style="color: var(--cyan); text-decoration: none;">Skip to main content &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Right Content Stream -->
+          <div class="split-right-pane">
+            <div>
+              <h4 style="font-size: 0.95rem; color: #fff;">MYTY Hosting Multi-Environment</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                Production droplet orchestrating Traefik reverse proxy, Let's Encrypt SSL, and dual Apache containers with automated GitHub Actions.
+              </p>
+              <div class="stack-pills-wrap">
+                <span class="stack-pill">Docker</span>
+                <span class="stack-pill">Traefik v3</span>
+                <span class="stack-pill">GitHub Actions</span>
+                <span class="stack-pill">DigitalOcean</span>
+                <span class="stack-pill">Python</span>
+              </div>
+            </div>
+            <div style="border-top: 1px solid var(--border); padding-top: 10px;">
+              <h4 style="font-size: 0.95rem; color: #fff;">Scientific &amp; Standard Calculation Engine</h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                High-precision, error-isolated mathematical evaluator with memory history, scientific functions, and ASCII/HTML entity safety.
+              </p>
+              <div class="stack-pills-wrap">
+                <span class="stack-pill">Vanilla JS</span>
+                <span class="stack-pill">CSS Variables</span>
+                <span class="stack-pill">Local Storage</span>
+                <span class="stack-pill">Unit Testing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback-panel">
+        <div class="feedback-row">
+          <label class="accept-toggle-wrap">
+            <input type="checkbox" class="idea-accept-cb" onchange="updateVote('idea-3')">
+            <span>Include Sticky Split-Screen Nav & Tech Stack Pills</span>
+          </label>
+          <div class="vote-buttons">
+            <button class="vote-btn" onclick="castVote('idea-3', 'up')" id="btn-up-idea-3">👍 Upvote (Love it)</button>
+            <button class="vote-btn" onclick="castVote('idea-3', 'down')" id="btn-down-idea-3">👎 Downvote (Skip)</button>
+          </div>
+        </div>
+        <textarea class="notes-box" placeholder="Notes for Antigravity (e.g., 'The stack pills look great on desktop, make sure mobile collapses gracefully')..." oninput="updateNotes('idea-3', this.value)"></textarea>
+      </div>
+    </article>
+
+    <!-- ════════════ IDEA 4: TIM GESEMANN ════════════ -->
+    <article class="idea-card" id="idea-4" data-idea-id="idea-4" data-idea-title="Curated Side-Project Lab & Transparent Infrastructure Card">
+      <div class="idea-header">
+        <div class="idea-title-area">
+          <div class="ref-meta">
+            <span class="example-no">Example #18</span>
+            <span class="role-tag">Tim Gesemann &middot; Design Engineer &middot; SvelteKit</span>
+          </div>
+          <h2>4. Curated Side Projects &amp; &ldquo;How This Site Is Built&rdquo; Card</h2>
+          <div class="principle-quote">
+            &ldquo;Side projects show range that a job title cannot. The site itself is one of them, with a note on how it is built and deployed.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <div class="prototype-sandbox">
+        <div class="sandbox-label">Interactive Prototype Preview</div>
+
+        <!-- Arch Breakdown Card -->
+        <div class="arch-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="font-size: 1rem; color: #fff;">Architecture: How MYTY.world is Built &amp; Deployed</h4>
+            <span class="tally-pill approved" style="font-size: 0.72rem;">Live &amp; Verified</span>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+            Full deployment transparency: Git commit &rarr; CI Validation &rarr; GHCR Registry &rarr; Traefik &rarr; Droplet.
+          </p>
+
+          <div class="arch-flow">
+            <div class="arch-step">
+              <div class="arch-step-icon">🐙</div>
+              <div class="arch-step-name">GitHub Actions</div>
+              <div class="arch-step-detail">Automated unit tests &amp; image build</div>
+            </div>
+            <div class="arch-step">
+              <div class="arch-step-icon">📦</div>
+              <div class="arch-step-name">GHCR Image</div>
+              <div class="arch-step-detail">Tagged releases (latest &amp; qa)</div>
+            </div>
+            <div class="arch-step">
+              <div class="arch-step-icon">🚦</div>
+              <div class="arch-step-name">Traefik v3</div>
+              <div class="arch-step-detail">SSL termination &amp; host routing</div>
+            </div>
+            <div class="arch-step">
+              <div class="arch-step-icon">💧</div>
+              <div class="arch-step-name">DigitalOcean</div>
+              <div class="arch-step-detail">Dedicated Droplet (Ubuntu 24)</div>
+            </div>
+          </div>
+
+          <div style="font-size: 0.78rem; color: var(--cyan); display: flex; gap: 14px; margin-top: 8px;">
+            <span>&bull; Side Projects Featured: <strong>Interactive Calculator</strong>, <strong>Retro Jukebox</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback-panel">
+        <div class="feedback-row">
+          <label class="accept-toggle-wrap">
+            <input type="checkbox" class="idea-accept-cb" onchange="updateVote('idea-4')">
+            <span>Include &ldquo;How This Site Is Built&rdquo; Card & Side-Projects Section</span>
+          </label>
+          <div class="vote-buttons">
+            <button class="vote-btn" onclick="castVote('idea-4', 'up')" id="btn-up-idea-4">👍 Upvote (Love it)</button>
+            <button class="vote-btn" onclick="castVote('idea-4', 'down')" id="btn-down-idea-4">👎 Downvote (Skip)</button>
+          </div>
+        </div>
+        <textarea class="notes-box" placeholder="Notes for Antigravity (e.g., 'Include the architecture card in the footer or about section')..." oninput="updateNotes('idea-4', this.value)"></textarea>
+      </div>
+    </article>
+
+    <!-- ════════════ IDEA 5: DIOGO CORREIA ════════════ -->
+    <article class="idea-card" id="idea-5" data-idea-id="idea-5" data-idea-title="Dated Milestone Timeline & The Impossible List">
+      <div class="idea-header">
+        <div class="idea-title-area">
+          <div class="ref-meta">
+            <span class="example-no">Example #19</span>
+            <span class="role-tag">Diogo Correia &middot; Developer &middot; Zola</span>
+          </div>
+          <h2>5. Dated Milestone Timeline &amp; &ldquo;The Impossible List&rdquo;</h2>
+          <div class="principle-quote">
+            &ldquo;Let a timeline carry the proof. Beside the work sits an Impossible List, a public, never-finished list of goals from milestones to challenges.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <div class="prototype-sandbox">
+        <div class="sandbox-label">Interactive Prototype Preview</div>
+
+        <!-- Vertical Timeline -->
+        <div class="timeline-wrap">
+          <div class="timeline-item">
+            <div class="timeline-date">OCTOBER &ndash; NOVEMBER 2026</div>
+            <div class="timeline-title">Containerized Multi-Environment Server Studio Deployed</div>
+            <div class="timeline-detail">
+              Configured DigitalOcean droplet with non-root SSH, Traefik edge routing, automated GitHub Actions CI/CD pipeline, and dual-domain staging.
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">NOVEMBER 2026</div>
+            <div class="timeline-title">Scientific Engine &amp; Calculator State Hardening</div>
+            <div class="timeline-detail">
+              Shipped zero-regression input queuing, evaluate-chaining protection, error-state isolation, and automated unit test suite.
+            </div>
+          </div>
+        </div>
+
+        <!-- The Impossible List Demo -->
+        <h4 style="font-size: 0.92rem; color: #fff; margin-bottom: 10px;">The Impossible List &mdash; Ongoing Technical Feats</h4>
+        <div class="impossible-list">
+          <div class="impossible-item">
+            <span>Deploy zero-downtime Blue/Green container swap</span>
+            <span class="imp-status done">COMPLETED</span>
+          </div>
+          <div class="impossible-item">
+            <span>Achieve 100/100 Lighthouse performance &amp; a11y</span>
+            <span class="imp-status wip">IN PROGRESS</span>
+          </div>
+          <div class="impossible-item">
+            <span>Automate automated rollback on failing health check</span>
+            <span class="imp-status wip">SPRINT 2</span>
+          </div>
+          <div class="impossible-item">
+            <span>Sub-20ms edge latency via regional caching</span>
+            <span class="imp-status wip">ROADMAP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback-panel">
+        <div class="feedback-row">
+          <label class="accept-toggle-wrap">
+            <input type="checkbox" class="idea-accept-cb" onchange="updateVote('idea-5')">
+            <span>Include Dated Milestone Timeline & The Impossible List</span>
+          </label>
+          <div class="vote-buttons">
+            <button class="vote-btn" onclick="castVote('idea-5', 'up')" id="btn-up-idea-5">👍 Upvote (Love it)</button>
+            <button class="vote-btn" onclick="castVote('idea-5', 'down')" id="btn-down-idea-5">👎 Downvote (Skip)</button>
+          </div>
+        </div>
+        <textarea class="notes-box" placeholder="Notes for Antigravity (e.g., 'The Impossible List is super unique, let's definitely include it')..." oninput="updateNotes('idea-5', this.value)"></textarea>
+      </div>
+    </article>
+
+    <!-- ════════════ IDEA 6: BEFIKIR SHIMELIS ════════════ -->
+    <article class="idea-card" id="idea-6" data-idea-id="idea-6" data-idea-title="Recruiter Mode / Fast View Mode Toggle">
+      <div class="idea-header">
+        <div class="idea-title-area">
+          <div class="ref-meta">
+            <span class="example-no">Example #21</span>
+            <span class="role-tag">Befikir Shimelis &middot; Software Engineering &middot; Custom Code</span>
+          </div>
+          <h2>6. &ldquo;Recruiter Mode&rdquo; Instant Plain-View Toggle</h2>
+          <div class="principle-quote">
+            &ldquo;Offer a plain view for readers in a hurry. A switch in the corner removes the heavy animations and music, leaving credentials and projects.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      <div class="prototype-sandbox">
+        <div class="sandbox-label">Interactive Prototype Preview &mdash; Toggle Below to Test Modes:</div>
+
+        <div class="recruiter-mode-demo">
+          <div class="mode-bar">
+            <div class="toggle-switch-wrap">
+              <span>Recruiter Mode (Plain View)</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="recruiterToggle" onchange="toggleRecruiterMode(this.checked)">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <span id="modeStatusLabel" style="font-size: 0.78rem; color: var(--accent);">Active: Rich Creative Velvet Mode</span>
+          </div>
+
+          <div class="recruiter-content" id="recruiterPreviewArea">
+            <h3 style="font-size: 1.2rem; margin-bottom: 6px;">Tairi J. &mdash; Cloud &amp; Systems Engineer</h3>
+            <p style="font-size: 0.88rem; margin-bottom: 12px;">
+              Information Technology &middot; Specializing in Linux Droplets, Container Orchestration, and Agile CI/CD.
+            </p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+              <span class="tally-pill approved plain-badge">Available for Projects</span>
+              <span class="tally-pill plain-badge">DigitalOcean Droplet Host</span>
+              <span class="tally-pill plain-badge">Automated CI/CD Validated</span>
+            </div>
+            <ul style="padding-left: 20px; font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px;">
+              <li><strong>Production URL:</strong> <a href="https://myty.world" target="_blank" style="color: inherit;">myty.world</a> &middot; Dual-environment staging at qa.myty.world</li>
+              <li><strong>Key Architecture:</strong> Traefik v3 Reverse Proxy, Docker Compose, GitHub Actions runner, Alpine Linux.</li>
+              <li><strong>Zero Root Policy:</strong> Hardened SSH with password authentication and direct root access disabled.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback-panel">
+        <div class="feedback-row">
+          <label class="accept-toggle-wrap">
+            <input type="checkbox" class="idea-accept-cb" onchange="updateVote('idea-6')">
+            <span>Include &ldquo;Recruiter Mode&rdquo; Instant Plain-View Toggle</span>
+          </label>
+          <div class="vote-buttons">
+            <button class="vote-btn" onclick="castVote('idea-6', 'up')" id="btn-up-idea-6">👍 Upvote (Love it)</button>
+            <button class="vote-btn" onclick="castVote('idea-6', 'down')" id="btn-down-idea-6">👎 Downvote (Skip)</button>
+          </div>
+        </div>
+        <textarea class="notes-box" placeholder="Notes for Antigravity (e.g., 'Having a recruiter switch in the navbar is awesome for professors and recruiters')..." oninput="updateNotes('idea-6', this.value)"></textarea>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Export Feedback Modal -->
+  <div class="export-modal-backdrop" id="exportModalBackdrop">
+    <div class="export-modal">
+      <div class="modal-header">
+        <h3 style="font-size: 1.15rem; color: #fff;">Your Review &amp; Implementation Directives</h3>
+        <button onclick="closeExportModal()" style="background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer;">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+          Copy this formatted directive and paste it right into our Antigravity chat. I will immediately finalize and merge your accepted features:
+        </p>
+        <textarea id="exportText" readonly></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeExportModal()">Close</button>
+        <button class="btn btn-primary" onclick="copyExportToClipboard()">📋 Copy to Clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toastNotification">Feedback Copied to Clipboard!</div>
+
+  <!-- Application Logic -->
+  <script>
+    const STORAGE_KEY = 'myty_design_lab_votes';
+
+    // State structure: { [ideaId]: { vote: 'up' | 'down' | null, accepted: boolean, notes: string } }
+    let votesState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+    const IDEA_CONFIGS = [
+      { id: 'idea-1', title: 'Result-First Metrics & Service Packages (Jessica Goldman)', defaultAccept: true },
+      { id: 'idea-2', title: 'Live Availability Status & Sector Filters (Andy Clarke)', defaultAccept: true },
+      { id: 'idea-3', title: 'Sticky Split-Screen & Tech Stack Pills (Brittany Chiang)', defaultAccept: true },
+      { id: 'idea-4', title: 'Side Projects & How Site Is Built Card (Tim Gesemann)', defaultAccept: true },
+      { id: 'idea-5', title: 'Dated Milestone Timeline & The Impossible List (Diogo Correia)', defaultAccept: true },
+      { id: 'idea-6', title: 'Recruiter Mode / Fast View Toggle (Befikir Shimelis)', defaultAccept: true }
+    ];
+
+    // Initialize state defaults
+    IDEA_CONFIGS.forEach(cfg => {
+      if (!votesState[cfg.id]) {
+        votesState[cfg.id] = { vote: null, accepted: cfg.defaultAccept, notes: '' };
+      }
+    });
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(votesState));
+      updateUI();
+    }
+
+    function castVote(ideaId, voteType) {
+      if (votesState[ideaId].vote === voteType) {
+        votesState[ideaId].vote = null; // Toggle off
+      } else {
+        votesState[ideaId].vote = voteType;
+        if (voteType === 'up') votesState[ideaId].accepted = true;
+        if (voteType === 'down') votesState[ideaId].accepted = false;
+      }
+      saveState();
+    }
+
+    function updateVote(ideaId) {
+      const card = document.getElementById(ideaId);
+      const cb = card.querySelector('.idea-accept-cb');
+      votesState[ideaId].accepted = cb.checked;
+      if (!cb.checked && votesState[ideaId].vote === 'up') {
+        votesState[ideaId].vote = null;
+      }
+      saveState();
+    }
+
+    function updateNotes(ideaId, val) {
+      votesState[ideaId].notes = val;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(votesState));
+    }
+
+    function updateUI() {
+      let approved = 0;
+      let rejected = 0;
+      let pending = 0;
+
+      IDEA_CONFIGS.forEach(cfg => {
+        const data = votesState[cfg.id] || { vote: null, accepted: false, notes: '' };
+        const card = document.getElementById(cfg.id);
+        if (!card) return;
+
+        const btnUp = document.getElementById(`btn-up-${cfg.id}`);
+        const btnDown = document.getElementById(`btn-down-${cfg.id}`);
+        const cb = card.querySelector('.idea-accept-cb');
+        const notes = card.querySelector('.notes-box');
+
+        // Checkbox state
+        cb.checked = !!data.accepted;
+
+        // Button active styling
+        btnUp.classList.toggle('active-up', data.vote === 'up');
+        btnDown.classList.toggle('active-down', data.vote === 'down');
+
+        // Card border color
+        card.classList.toggle('status-approved', data.vote === 'up' || data.accepted === true);
+        card.classList.toggle('status-rejected', data.vote === 'down' && !data.accepted);
+
+        // Notes box
+        if (notes && notes.value !== data.notes) {
+          notes.value = data.notes || '';
+        }
+
+        // Tally
+        if (data.vote === 'up' || data.accepted) approved++;
+        else if (data.vote === 'down') rejected++;
+        else pending++;
+      });
+
+      document.getElementById('approvedCount').textContent = `${approved} Approved 👍`;
+      document.getElementById('rejectedCount').textContent = `${rejected} Rejected 👎`;
+      document.getElementById('pendingCount').textContent = `${pending} Pending`;
+    }
+
+    // Interactive Demo Helpers
+    function toggleDemoAvailability(btn) {
+      const indicator = btn.previousElementSibling;
+      if (indicator.textContent.includes('🟢')) {
+        indicator.innerHTML = '<span class="status-dot" style="background:var(--amber);box-shadow:0 0 10px var(--amber);"></span><span>🟡 Status: Limited Availability &mdash; 1 slot open for Q1</span>';
+      } else if (indicator.textContent.includes('🟡')) {
+        indicator.innerHTML = '<span class="status-dot" style="background:var(--rose);box-shadow:0 0 10px var(--rose);"></span><span>🔴 Status: Booked through December &mdash; Inquiries for 2027</span>';
+      } else {
+        indicator.innerHTML = '<span class="status-dot"></span><span>🟢 Status: Taking on select cloud engineering &amp; web projects for Q1 2027</span>';
+      }
+    }
+
+    function selectSector(pill) {
+      document.querySelectorAll('.sector-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    }
+
+    function activateSimLink(link) {
+      document.querySelectorAll('.sim-nav-link').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    }
+
+    function toggleRecruiterMode(isPlain) {
+      const preview = document.getElementById('recruiterPreviewArea');
+      const label = document.getElementById('modeStatusLabel');
+      if (isPlain) {
+        preview.classList.add('plain-mode');
+        label.textContent = 'Active: Recruiter High-Density Plain View';
+        label.style.color = 'var(--emerald)';
+      } else {
+        preview.classList.remove('plain-mode');
+        label.textContent = 'Active: Rich Creative Velvet Mode';
+        label.style.color = 'var(--accent)';
+      }
+    }
+
+    // Modal & Export System
+    function generateExportMarkdown() {
+      let md = `## 🎨 MYTY World Design Review Directives (2026 Portfolio Roles)\n\n`;
+      md += `*Review Date: ${new Date().toLocaleDateString()}*\n\n`;
+
+      IDEA_CONFIGS.forEach(cfg => {
+        const item = votesState[cfg.id];
+        const status = item.accepted ? '✅ ACCEPTED' : (item.vote === 'down' ? '❌ REJECTED' : '⏳ PENDING');
+        const vote = item.vote ? `(Vote: ${item.vote.toUpperCase()})` : '';
+        md += `### ${status} &mdash; ${cfg.title} ${vote}\n`;
+        if (item.notes && item.notes.trim()) {
+          md += `> **Directives / Notes**: ${item.notes.trim()}\n`;
+        }
+        md += `\n`;
+      });
+
+      md += `\n**Next Action for Antigravity:** Implement and finalize the accepted design suites into the main site following the Agile deployment pipeline.\n`;
+      return md;
+    }
+
+    function openExportModal() {
+      const text = generateExportMarkdown();
+      document.getElementById('exportText').value = text;
+      document.getElementById('exportModalBackdrop').classList.add('open');
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModalBackdrop').classList.remove('open');
+    }
+
+    function copyExportToClipboard() {
+      const text = document.getElementById('exportText').value;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Feedback Copied to Clipboard! Paste it into our chat.');
+        closeExportModal();
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3500);
+    }
+
+    // Run on load
+    updateUI();
+  </script>
+</body>
+</html>

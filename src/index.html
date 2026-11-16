@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -73,9 +73,9 @@
       pointer-events: none;
       z-index: 0;
       background: 
-        radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.14) 0%, transparent 50%),
-        radial-gradient(circle at 50% 80%, rgba(244, 63, 94, 0.08) 0%, transparent 40%);
+        radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(244, 63, 94, 0.04) 0%, transparent 40%);
     }
 
     /* Navigation Bar */
@@ -180,7 +180,7 @@
     /* Hero Section */
     .hero-section {
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr;
       gap: 48px;
       align-items: center;
       margin-bottom: 64px;
@@ -227,11 +227,6 @@
       margin-bottom: 20px;
     }
     .hero-gradient-text {
-      background: linear-gradient(135deg, #ffffff 10%, #cbd5e1 50%, var(--accent-cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    [data-theme="light"] .hero-gradient-text {
       background: linear-gradient(135deg, #0f172a 20%, #334155 60%, var(--accent-cyan) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -946,12 +941,429 @@
       transition: all 0.2s;
     }
     .calc-history-clear:hover { border-color: var(--accent-rose); color: var(--accent-rose); }
+
+    /* 2026 Portfolio Enhancements */
+    .availability-banner {
+      position: relative;
+      z-index: 101;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+      color: #07111d;
+      padding: 9px 24px;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .availability-banner a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1.5px solid currentColor;
+      margin-left: 4px;
+      transition: opacity 0.2s;
+    }
+    .availability-banner a:hover { opacity: 0.8; }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 64px);
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .profile-rail {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      padding: 16px 0;
+    }
+    .rail-avatar-small {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      box-shadow: 0 4px 14px var(--glow-accent);
+      margin-bottom: 14px;
+    }
+    .rail-kicker, .project-kicker, .signal-date {
+      color: var(--accent-cyan);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .rail-name {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+      margin: 6px 0 8px;
+    }
+    .rail-role {
+      color: var(--text-secondary);
+      font-size: .9rem;
+      line-height: 1.4;
+      margin-bottom: 22px;
+    }
+    .rail-nav {
+      display: grid;
+      gap: 4px;
+      border-left: 2px solid var(--border);
+      padding-left: 14px;
+    }
+    .rail-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 600;
+      padding: 6px 0;
+      transition: color .2s, transform .2s;
+    }
+    .rail-nav a:hover {
+      color: var(--accent-cyan);
+      transform: translateX(4px);
+    }
+    .rail-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .rail-links a {
+      color: var(--text-secondary);
+      font-size: .78rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: var(--bg-surface);
+      transition: all .2s;
+    }
+    .rail-links a:hover {
+      color: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      transform: translateY(-1px);
+    }
+
+    .portfolio-flow { min-width: 0; }
+    .hero-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 24px;
+    }
+    .proof-chip {
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .8rem;
+      font-weight: 600;
+      background: var(--bg-surface);
+    }
+
+    .quick-toggle {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 7px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .quick-toggle:hover, .quick-toggle.active {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .section-intro {
+      max-width: 660px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin: -16px auto 32px;
+      font-size: 0.95rem;
+    }
+
+    .pillar-context {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .context-tag {
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px;
+      color: var(--text-primary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow-card);
+      text-decoration: none;
+      transition: transform .25s, border-color .25s;
+    }
+    .project-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+    }
+    .project-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: -.03em;
+      margin: 8px 0 6px;
+    }
+    .project-card p {
+      color: var(--text-secondary);
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+    .project-meta span {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, .1);
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+
+    .signal-list {
+      position: relative;
+      margin: 24px auto 0;
+      max-width: 680px;
+      border-left: 2px solid var(--border-accent);
+      padding-left: 28px;
+    }
+    .signal-item {
+      position: relative;
+      padding: 0 0 32px;
+    }
+    .signal-item::before {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 0 4px var(--bg);
+      left: -34px;
+      top: 5px;
+    }
+    .signal-item h3 {
+      font-family: var(--font-display);
+      margin: 4px 0;
+      font-size: 1.15rem;
+    }
+    .signal-item p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: .92rem;
+    }
+
+    .repo-section { margin-bottom: 76px; }
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .repo-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-card);
+      transition: border-color .2s, transform .2s;
+    }
+    .repo-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+    }
+    .repo-card h3 { font-size: 1.05rem; margin: 0; }
+    .repo-card p { margin: 0; color: var(--text-secondary); font-size: .88rem; line-height: 1.5; }
+    .repo-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: auto;
+      padding-top: 10px;
+    }
+    .repo-actions a {
+      color: var(--accent-cyan);
+      font-size: .82rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .repo-actions a:hover { text-decoration: underline; }
+    .repo-loading {
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    /* Interactive Work w/ Me Form */
+    .inquiry-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 32px;
+      max-width: 640px;
+      margin: 0 auto 40px;
+      box-shadow: var(--shadow-card);
+    }
+    .inquiry-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+    .inquiry-card p {
+      color: var(--text-secondary);
+      font-size: .92rem;
+      margin-bottom: 20px;
+    }
+    .inquiry-types {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .inquiry-pill-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .inquiry-pill-btn.active, .inquiry-pill-btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.08);
+    }
+    .inquiry-form-group {
+      margin-bottom: 14px;
+    }
+    .inquiry-form-group input, .inquiry-form-group textarea {
+      width: 100%;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: .9rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .inquiry-form-group input:focus, .inquiry-form-group textarea:focus {
+      border-color: var(--accent-cyan);
+    }
+    .inquiry-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+      color: #ffffff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .inquiry-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--glow-accent);
+    }
+
+    /* Quick View Mode */
+    body[data-quick-view="true"] .ambient-mesh,
+    body[data-quick-view="true"] .availability-banner,
+    body[data-quick-view="true"] .signal-log,
+    body[data-quick-view="true"] .teaser-banner {
+      display: none !important;
+    }
+    body[data-quick-view="true"] .main-layout { padding-top: 24px; }
+
+    @media (max-width: 960px) {
+      .main-layout {
+        display: block;
+        padding-top: 24px;
+      }
+      .profile-rail {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        padding: 0 0 24px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 32px;
+      }
+      .rail-avatar-small { margin-bottom: 0; }
+      .rail-kicker, .rail-role, .rail-nav { display: none; }
+      .rail-name { font-size: 1.4rem; margin: 0; }
+      .rail-links { margin: 0 0 0 auto; }
+    }
+    @media (max-width: 640px) {
+      header.site-header { padding: 12px 18px; }
+      .nav-container { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .nav-actions { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+      .main-layout { padding-left: 16px; padding-right: 16px; }
+      .work-grid, .repo-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
   <!-- Ambient background glow mesh -->
   <div class="ambient-mesh"></div>
+
+  <!-- Availability Signal Banner -->
+  <div class="availability-banner">
+    🟢 Live &mdash; 99.99% Uptime &middot; Open for select collaborations &amp; cloud projects &middot; <a href="#connect">Work with me &rarr;</a>
+  </div>
 
   <!-- Header Navigation -->
   <header class="site-header">
@@ -965,126 +1377,207 @@
       </a>
       
       <div class="nav-actions">
-        <a href="#pillars" class="nav-link">4 Pillars</a>
-        <a href="#calculator" class="nav-link">Calculator</a>
-        <a href="#connect" class="nav-link">Connect</a>
-        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Mood Theme">
-          <span id="themeIcon">☀️</span>
-          <span id="themeText">Pearl</span>
-        </button>
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#signal" class="nav-link">Signal Log</a>
+        <a href="#repos" class="nav-link">GitHub</a>
+        <button id="quickViewToggle" class="quick-toggle" type="button" aria-pressed="false">Quick View</button>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <div class="hero-badge-wrap">
-          <div class="status-badge">
-            <span class="status-dot"></span>
-            <span id="envBadgeText">Live On Traefik &middot; myty.world</span>
+  <main class="main-layout">
+    <!-- Desktop Identity Rail (Brittany Chiang style) -->
+    <aside class="profile-rail" aria-label="Portfolio navigation">
+      <div class="rail-avatar-small">
+        <span>T</span>
+      </div>
+      <div class="rail-kicker">MYTY WORLD</div>
+      <div class="rail-name">Tizz</div>
+      <p class="rail-role">Artist<br>Technologist<br>Creator</p>
+      <nav class="rail-nav" aria-label="Sections">
+        <a href="#top">Intro</a>
+        <a href="#pillars">Pillars</a>
+        <a href="#work">Selected work</a>
+        <a href="#signal">Signal log</a>
+        <a href="#repos">Public code</a>
+        <a href="#calculator">Calculator</a>
+      </nav>
+      <div class="rail-links">
+        <a href="https://github.com/TairiJ" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/tairi-johnson/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </aside>
+
+    <div class="portfolio-flow">
+      <!-- HERO SECTION -->
+      <section id="top" class="hero-section">
+        <div class="hero-content">
+          <div class="hero-badge-wrap">
+            <div class="status-badge">
+              <span class="status-dot"></span>
+              <span id="envBadgeText">🟢 Live &mdash; 99.99% Uptime</span>
+            </div>
+          </div>
+          <h1 class="hero-title">
+            <span class="hero-gradient-text">Innovative Processes &amp; Creative Solutions.</span>
+          </h1>
+          <p class="hero-sub">
+            I build artistically, considering everyone from the end-user to the admin; With style and intention.
+          </p>
+          <div class="hero-proof" aria-label="Focus areas">
+            <span class="proof-chip">Artist &amp; Producer</span>
+            <span class="proof-chip">Master Barber</span>
+            <span class="proof-chip">Cloud &amp; DevOps</span>
+            <span class="proof-chip">Available for Select Work</span>
+          </div>
+          <div class="hero-actions">
+            <a href="#work" class="btn-primary">
+              <span>✨</span> Explore My Work
+            </a>
+            <a href="#connect" class="btn-secondary">
+              <span>🤝</span> Work w/ Me
+            </a>
+            <a href="#repos" class="btn-secondary">
+              <span>🐙</span> View my GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/tairi-johnson/" target="_blank" rel="noopener" class="btn-secondary">
+              <span>💼</span> View my LinkedIn
+            </a>
           </div>
         </div>
-        <h1 class="hero-title">
-          <span class="hero-gradient-text">Cool. Creative. Versatile.</span><br>
-          Welcome to My World.
-        </h1>
-        <p class="hero-sub">
-          I'm <strong>Tizz</strong> (@tizz.zyy) &mdash; an artist crafting melodic, romantic sonic landscapes, a barber curating aesthetic precision, and a technologist engineering cloud infrastructure.
-        </p>
-        <div class="hero-actions">
-          <a href="#pillars" class="btn-primary">
-            <span>✨</span> Explore Identity Pillars
+      </section>
+
+      <!-- THE 4 PILLARS OF IDENTITY -->
+      <section id="pillars">
+        <div class="section-header">
+          <span class="section-label">MULTIFACETED IDENTITY</span>
+          <h2 class="section-title">The 4 Pillars of MYTY</h2>
+        </div>
+        <p class="section-intro">One identity, expressed through four disciplines. Each gives collaborators a clear view of the craft, the role, and the energy behind the work.</p>
+
+        <div class="pillars-grid">
+          <!-- 1. Artistic -->
+          <div class="pillar-card artistic">
+            <div>
+              <div class="pillar-icon">🎶</div>
+              <h3 class="pillar-title">Artistic Expression</h3>
+              <p class="pillar-desc">
+                Melodic, romantic, and versatile rap with soulful textures. Blending vulnerable lyricism with infectious rhythms, DJ curation, and sonic worldbuilding.
+              </p>
+            </div>
+            <div class="pillar-footer-tag">Discography &middot; DJ &middot; Vision</div>
+            <div class="pillar-context"><span class="context-tag">SONIC DIRECTION</span><span class="context-tag">LIVE CURATION</span></div>
+          </div>
+
+          <!-- 2. Academic -->
+          <div class="pillar-card academic">
+            <div>
+              <div class="pillar-icon">⚡</div>
+              <h3 class="pillar-title">Academic & Tech</h3>
+              <p class="pillar-desc">
+                Cloud & Network Infrastructure (IS 373). Mastering Linux systems, Docker container microservices, Traefik edge reverse proxies, and automated Let's Encrypt TLS security.
+              </p>
+            </div>
+            <div class="pillar-footer-tag">Cloud Infrastructure &middot; DevOps</div>
+            <div class="pillar-context"><span class="context-tag">DOCKER</span><span class="context-tag">TRAEFIK</span><span class="context-tag">CI/CD</span></div>
+          </div>
+
+          <!-- 3. Professional -->
+          <div class="pillar-card professional">
+            <div>
+              <div class="pillar-icon">✂️</div>
+              <h3 class="pillar-title">Professional Craft</h3>
+              <p class="pillar-desc">
+                Master barbering, personal grooming craft, and entrepreneurship. Bringing sharp artistic discipline, high-touch client experience, and brand vision to life.
+              </p>
+            </div>
+            <div class="pillar-footer-tag">Barbering &middot; Enterprise &middot; Detail</div>
+            <div class="pillar-context"><span class="context-tag">CRAFT</span><span class="context-tag">CLIENT EXPERIENCE</span></div>
+          </div>
+
+          <!-- 4. Spiritual -->
+          <div class="pillar-card spiritual">
+            <div>
+              <div class="pillar-icon">🕊️</div>
+              <h3 class="pillar-title">Spiritual & Mindset</h3>
+              <p class="pillar-desc">
+                Protecting the energy, elevating the aura, and executing with intention. Moving through life with quiet confidence, self-mastery, and constant evolution.
+              </p>
+            </div>
+            <div class="pillar-footer-tag">Energy &middot; Growth &middot; Alignment</div>
+            <div class="pillar-context"><span class="context-tag">INTENTION</span><span class="context-tag">EVOLUTION</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SELECTED WORK -->
+      <section id="work" class="work-section" style="margin-bottom: 80px;">
+        <div class="section-header">
+          <span class="section-label">PORTFOLIO</span>
+          <h2 class="section-title">What is being built.</h2>
+        </div>
+
+        <div class="work-grid">
+          <a class="project-card" href="#calculator">
+            <div>
+              <div class="project-kicker">MYTY TOOL</div>
+              <h3>Creator Calculator</h3>
+              <p>A focused productivity companion for assignments, studio sessions, work shifts, and the details that keep motion going.</p>
+            </div>
+            <div class="project-meta">
+              <span>PRODUCT UI</span><span>VANILLA JS</span><span>LOCAL HISTORY</span>
+            </div>
           </a>
-          <a href="#calculator" class="btn-secondary">
-            <span>🧮</span> Calculator
+          <a class="project-card" href="https://github.com/TairiJ/myty-hosting" target="_blank" rel="noopener">
+            <div>
+              <div class="project-kicker">INFRASTRUCTURE</div>
+              <h3>MYTY Hosting Stack</h3>
+              <p>A containerized production and QA workflow behind Traefik, with automated deployment and HTTPS at the edge.</p>
+            </div>
+            <div class="project-meta">
+              <span>DOCKER</span><span>TRAEFIK</span><span>GITHUB ACTIONS</span>
+            </div>
           </a>
-          <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="btn-secondary">
-            <span>📸</span> @tizz.zyy
-          </a>
         </div>
-      </div>
+      </section>
 
-      <!-- Hero Portrait Card (Monogram / No Photo) -->
-      <div class="hero-portrait-card">
-        <div class="avatar-wrapper">
-          <div class="avatar-monogram">
-            <span class="avatar-initials">T</span>
-          </div>
-          <div class="avatar-badge">👑</div>
+      <!-- SIGNAL LOG (PROOF TIMELINE) -->
+      <section id="signal" class="signal-log" style="margin-bottom: 80px;">
+        <div class="section-header">
+          <span class="section-label">SIGNAL LOG</span>
+          <h2 class="section-title">Proof in motion.</h2>
         </div>
-        <div class="portrait-name">Tizz</div>
-        <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="portrait-handle">@tizz.zyy</a>
-        <div class="portrait-tags">
-          <span class="portrait-tag">✍🏽 Artist</span>
-          <span class="portrait-tag">🎧 DJ</span>
-          <span class="portrait-tag">💈 Barber</span>
-          <span class="portrait-tag">💻 Tech</span>
+        <div class="signal-list">
+          <article class="signal-item">
+            <div class="signal-date">NOW</div>
+            <h3>MYTY.world enters its next phase.</h3>
+            <p>A clearer portfolio surface for creative work, technical projects, and meaningful collaboration.</p>
+          </article>
+          <article class="signal-item">
+            <div class="signal-date">SYSTEMS</div>
+            <h3>Cloud infrastructure shipped.</h3>
+            <p>QA and production are kept distinct, with Docker, Traefik, and CI/CD doing the work behind the scenes.</p>
+          </article>
+          <article class="signal-item">
+            <div class="signal-date">NEXT</div>
+            <h3>Public releases and collaborations.</h3>
+            <p>This log is designed to grow with releases, bookings, certifications, and projects that earn a place here.</p>
+          </article>
         </div>
-        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
-          "Blending romantic melodies, street aesthetic, and autonomous cloud systems."
-        </p>
-      </div>
-    </section>
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 28px; font-style: italic;">⚡ Timeline milestones will be updated as projects ship.</p>
+      </section>
 
-    <!-- THE 4 PILLARS OF IDENTITY -->
-    <section id="pillars">
-      <div class="section-header">
-        <span class="section-label">MULTIFACETED IDENTITY</span>
-        <h2 class="section-title">The 4 Pillars of MYTY</h2>
-      </div>
-
-      <div class="pillars-grid">
-        <!-- 1. Artistic -->
-        <div class="pillar-card artistic">
-          <div>
-            <div class="pillar-icon">🎶</div>
-            <h3 class="pillar-title">Artistic Expression</h3>
-            <p class="pillar-desc">
-              Melodic, romantic, and versatile rap with soulful textures. Blending vulnerable lyricism with infectious rhythms, DJ curation, and sonic worldbuilding.
-            </p>
-          </div>
-          <div class="pillar-footer-tag">Discography &middot; DJ &middot; Vision</div>
+      <!-- PUBLIC CODE (GITHUB REPOS) -->
+      <section id="repos" class="repo-section">
+        <div class="section-header">
+          <span class="section-label">PUBLIC CODE</span>
+          <h2 class="section-title">From GitHub, kept current.</h2>
         </div>
-
-        <!-- 2. Academic -->
-        <div class="pillar-card academic">
-          <div>
-            <div class="pillar-icon">⚡</div>
-            <h3 class="pillar-title">Academic & Tech</h3>
-            <p class="pillar-desc">
-              Cloud & Network Infrastructure (IS 373). Mastering Linux systems, Docker container microservices, Traefik edge reverse proxies, and automated Let's Encrypt TLS security.
-            </p>
-          </div>
-          <div class="pillar-footer-tag">Cloud Infrastructure &middot; DevOps</div>
+        <p class="section-intro">Recent public repositories from <a href="https://github.com/TairiJ" target="_blank" rel="noopener" style="color:var(--accent-cyan)">github.com/TairiJ</a>. Repository links give a technical look at code and workflow; GitHub Pages links showcase live production deliverables.</p>
+        <div class="repo-grid" id="repoGrid" aria-live="polite">
+          <p class="repo-loading">Loading current public projects&hellip;</p>
         </div>
-
-        <!-- 3. Professional -->
-        <div class="pillar-card professional">
-          <div>
-            <div class="pillar-icon">✂️</div>
-            <h3 class="pillar-title">Professional Craft</h3>
-            <p class="pillar-desc">
-              Master barbering, personal grooming craft, and entrepreneurship. Bringing sharp artistic discipline, high-touch client experience, and brand vision to life.
-            </p>
-          </div>
-          <div class="pillar-footer-tag">Barbering &middot; Enterprise &middot; Detail</div>
-        </div>
-
-        <!-- 4. Spiritual -->
-        <div class="pillar-card spiritual">
-          <div>
-            <div class="pillar-icon">🕊️</div>
-            <h3 class="pillar-title">Spiritual & Mindset</h3>
-            <p class="pillar-desc">
-              Protecting the energy, elevating the aura, and executing with intention. Moving through life with quiet confidence, self-mastery, and constant evolution.
-            </p>
-          </div>
-          <div class="pillar-footer-tag">Energy &middot; Growth &middot; Alignment</div>
-        </div>
-      </div>
-    </section>
+      </section>
 
     <!-- TEASER BANNER: MYTY ORBIT PLANNER -->
     <section class="teaser-banner">
@@ -1201,30 +1694,52 @@
         </div>
       </div>
     </section>
-
+    </div>
   </main>
 
   <!-- Connect Footer -->
   <footer id="connect" class="site-footer">
+    <!-- Interactive Work w/ Me Experience -->
+    <div class="inquiry-card">
+      <div class="project-kicker" style="margin-bottom: 6px;">GET IN TOUCH</div>
+      <h3>Work w/ Me</h3>
+      <p>Whether you need resilient cloud architecture, sonic direction, or creative collaboration, let's connect.</p>
+      <div class="inquiry-types" id="inquiryTypes">
+        <button type="button" class="inquiry-pill-btn active" data-type="Cloud &amp; DevOps">Cloud &amp; DevOps</button>
+        <button type="button" class="inquiry-pill-btn" data-type="Creative / Music">Creative &amp; Music</button>
+        <button type="button" class="inquiry-pill-btn" data-type="Barbering &amp; Style">Barbering &amp; Style</button>
+        <button type="button" class="inquiry-pill-btn" data-type="General Inquiry">General</button>
+      </div>
+      <form id="inquiryForm" onsubmit="event.preventDefault(); submitInquiry();">
+        <div class="inquiry-form-group">
+          <input type="text" id="inqName" placeholder="Your name" required>
+        </div>
+        <div class="inquiry-form-group">
+          <textarea id="inqMessage" rows="3" placeholder="Tell me about your project or inquiry..." required></textarea>
+        </div>
+        <button type="submit" class="inquiry-submit-btn">Send Inquiry &rarr;</button>
+      </form>
+    </div>
+
     <div class="footer-social-links">
-      <a href="https://instagram.com/tizz.zyy" target="_blank" rel="noopener" class="footer-social-link">
-        <span>📸</span> Instagram @tizz.zyy
-      </a>
-      <a href="https://tiktok.com/@tizzys.burner" target="_blank" rel="noopener" class="footer-social-link">
-        <span>🎵</span> TikTok
-      </a>
       <a href="https://open.spotify.com/artist/6l9lah6kIUt7ZmYcpCALyx" target="_blank" rel="noopener" class="footer-social-link">
         <span>🟢</span> Spotify
       </a>
       <a href="https://music.apple.com/us/artist/tizz/1557122079" target="_blank" rel="noopener" class="footer-social-link">
         <span>🍎</span> Apple Music
       </a>
+      <a href="https://github.com/TairiJ" target="_blank" rel="noopener" class="footer-social-link">
+        <span>🐙</span> GitHub TairiJ
+      </a>
+      <a href="https://www.linkedin.com/in/tairi-johnson/" target="_blank" rel="noopener" class="footer-social-link">
+        <span>💼</span> LinkedIn
+      </a>
       <a href="mailto:tairij10@gmail.com" class="footer-social-link">
         <span>✉️</span> Inquiries: tairij10@gmail.com
       </a>
     </div>
 
-    <p>&copy; 2026 Tizz &middot; <strong>myty.world</strong> &middot; Hosted on Ubuntu 24.04 with Docker &amp; Traefik</p>
+    <p>&copy; 2026 Tizz &middot; <strong>myty.world</strong></p>
     
     <div class="server-status-pill">
       <span class="status-dot"></span>
@@ -1234,24 +1749,82 @@
 
   <!-- Interactive JavaScript -->
   <script>
-    // 1. Theme Mood Switcher (Midnight Velvet vs Champagne Pearl)
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-    const htmlElem = document.documentElement;
+    // Theme is permanently set to light (Pearl) via data-theme="light" on <html>
 
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = htmlElem.getAttribute('data-theme');
-      if (currentTheme === 'dark') {
-        htmlElem.setAttribute('data-theme', 'light');
-        themeIcon.textContent = '🌙';
-        themeText.textContent = 'Midnight';
-      } else {
-        htmlElem.setAttribute('data-theme', 'dark');
-        themeIcon.textContent = '☀️';
-        themeText.textContent = 'Pearl';
-      }
+    // 1. Quick View Toggle (Recruiter / Fast Scan mode)
+    const quickViewToggle = document.getElementById('quickViewToggle');
+    if (quickViewToggle) {
+      const quickViewKey = 'mytyQuickView';
+      const setQuickView = (enabled) => {
+        document.body.dataset.quickView = String(enabled);
+        quickViewToggle.setAttribute('aria-pressed', String(enabled));
+        quickViewToggle.textContent = enabled ? 'Full World' : 'Quick View';
+        quickViewToggle.classList.toggle('active', enabled);
+        localStorage.setItem(quickViewKey, String(enabled));
+      };
+      setQuickView(localStorage.getItem(quickViewKey) === 'true');
+      quickViewToggle.addEventListener('click', () => setQuickView(document.body.dataset.quickView !== 'true'));
+    }
+
+    // 2. Interactive Work w/ Me Form
+    let selectedInquiryType = 'Cloud & DevOps';
+    const inquiryTypeBtns = document.querySelectorAll('.inquiry-pill-btn');
+    inquiryTypeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        inquiryTypeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedInquiryType = btn.dataset.type || btn.textContent;
+      });
     });
+
+    function submitInquiry() {
+      const name = document.getElementById('inqName').value.trim();
+      const message = document.getElementById('inqMessage').value.trim();
+      if (!name || !message) return;
+      const subject = encodeURIComponent(`[myty.world] Inquiry: ${selectedInquiryType} from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nCategory: ${selectedInquiryType}\n\nMessage:\n${message}\n\nSent via myty.world`);
+      window.location.href = `mailto:tairij10@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // 3. Keep public GitHub and GitHub Pages destinations real & filter out finalproject
+    (async () => {
+      const grid = document.getElementById('repoGrid');
+      if (!grid) return;
+      const escapeHtml = (val = '') => String(val).replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' })[c]);
+      try {
+        const response = await fetch('https://api.github.com/users/TairiJ/repos?sort=updated&per_page=100', { headers: { Accept: 'application/vnd.github+json' } });
+        if (!response.ok) throw new Error('GitHub API unavailable');
+        const repositories = await response.json();
+        // Filter out forks AND finalproject as requested
+        const selected = repositories.filter(repo => !repo.fork && repo.name.toLowerCase() !== 'finalproject').slice(0, 6);
+        if (!selected.length) throw new Error('No public repositories found');
+        grid.innerHTML = selected.map(repo => {
+          const pagesUrl = repo.has_pages ? `https://tairij.github.io/${encodeURIComponent(repo.name)}/` : '';
+          const description = escapeHtml(repo.description || 'Public project source and development history on GitHub.');
+          return `<article class="repo-card"><div class="project-kicker">${escapeHtml(repo.language || 'PROJECT')}</div><h3>${escapeHtml(repo.name)}</h3><p>${description}</p><div class="repo-actions"><a href="${repo.html_url}" target="_blank" rel="noopener">Repository &rarr;</a>${pagesUrl ? `<a href="${pagesUrl}" target="_blank" rel="noopener">GitHub Pages &rarr;</a>` : ''}</div></article>`;
+        }).join('');
+      } catch (error) {
+        // Fallback static high-quality cards
+        grid.innerHTML = `
+          <article class="repo-card">
+            <div class="project-kicker">INFRASTRUCTURE</div>
+            <h3>myty-hosting</h3>
+            <p>A containerized production and QA workflow behind Traefik, with automated deployment and HTTPS at the edge.</p>
+            <div class="repo-actions">
+              <a href="https://github.com/TairiJ/myty-hosting" target="_blank" rel="noopener">Repository &rarr;</a>
+            </div>
+          </article>
+          <article class="repo-card">
+            <div class="project-kicker">TYPESCRIPT</div>
+            <h3>omnifit</h3>
+            <p>Full-stack digital fitness tracking and wellness ecosystem.</p>
+            <div class="repo-actions">
+              <a href="https://github.com/TairiJ/omnifit" target="_blank" rel="noopener">Repository &rarr;</a>
+            </div>
+          </article>
+        `;
+      }
+    })();
 
     // 2. The Jukebox Interactive Audio Player Simulation (Guarded for draft mode)
     const playBtn = document.getElementById('playBtn');
