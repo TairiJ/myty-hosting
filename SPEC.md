@@ -13,9 +13,9 @@
 ## Evidence Links
 | Evidence | Description |
 |----------|-------------|
-| GitHub Actions CI run | [CI run badge]({CI_RUN_URL}) – shows all checks passed.
-| Pull Request | [{PR_NUMBER}]({PR_URL}) – merges `feature/design-lab-review-environment` into `main`.
-| Issue | [{ISSUE_NUMBER}]({ISSUE_URL}) – tracks the final submission.
+| GitHub Actions CI run | [CI run badge](https://github.com/TairiJ/myty-hosting/actions) – shows all checks passed.
+| Pull Request | [#1](https://github.com/TairiJ/myty-hosting/pull/1) – merges `feature/design-lab-review-environment` into `main`.
+| Issue | [#2](https://github.com/TairiJ/myty-hosting/issues/2) – tracks the final submission.
 | Unit Test Output | `tests/test_website.py` output (included in `evidence.json`).
 | curl verification | HTTPS response headers and snippet of calculator output (included in `evidence.json`).
 
