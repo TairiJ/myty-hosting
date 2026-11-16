@@ -1,7 +1,15 @@
 {
-  "unit_test_output": "<placeholder – add CI test output>",
-  "curl_headers": "<placeholder – add curl -sI output>",
-  "ci_run_url": "<placeholder – GitHub Actions run URL>",
-  "pr_url": "<placeholder – Pull Request URL>",
-  "issue_url": "<placeholder – Issue URL>"
+  "unit_test_output": "https://github.com/TairiJ/myty-hosting/actions",
+  "curl_headers":
+  "HTTP/1.1 200 OK
+  Accept-Ranges: bytes
+  Content-Length: 75825
+  Content-Type: text/html
+  Date: Mon, 16 Nov 2026 20:13:25 GMT
+  Etag: "12831-6606a202ec5c0"
+  Last-Modified: Mon, 16 Nov 2026 19:53:03 GMT
+  Server: Apache/2.4.71 (Unix)",
+  "ci_run_url": "https://github.com/TairiJ/myty-hosting/actions/runs/43938499968/job/133549375717",
+  "pr_url": "https://github.com/TairiJ/myty-hosting/pull/1",
+  "issue_url": "https://github.com/TairiJ/myty-hosting/issues/2"
 }
